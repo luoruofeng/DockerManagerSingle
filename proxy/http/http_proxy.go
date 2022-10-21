@@ -1,6 +1,7 @@
 package http
 
 import (
+	"context"
 	"fmt"
 	"io"
 	"net/http"
@@ -71,14 +72,8 @@ func proxyHandler(w http.ResponseWriter, r *http.Request) {
 	io.Copy(w, resp.Body)
 }
 
-func Start(host string, port int) {
-
+func Start(ctx context.Context, cancelFunc func(), port int) {
 	r := mux.NewRouter()
 	r.PathPrefix("/").HandlerFunc(proxyHandler)
-
-	if host == "" {
-		host = "0.0.0.0"
-	}
-
-	fmt.Println(http.ListenAndServe(host+":"+strconv.Itoa(port), r))
+	fmt.Println(http.ListenAndServe(":"+strconv.Itoa(port), r))
 }
