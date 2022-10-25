@@ -1,13 +1,19 @@
 package container
 
 import (
+	"bytes"
 	"context"
+	"io"
 	"log"
+	"strconv"
 
 	"github.com/luoruofeng/dockermanagersingle/mapping"
 	"github.com/luoruofeng/dockermanagersingle/types"
 
 	dockertypes "github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/container"
+	containertypes "github.com/docker/docker/api/types/container"
+	dockernat "github.com/docker/go-connections/nat"
 
 	dockerfilters "github.com/docker/docker/api/types/filters"
 	"github.com/docker/docker/client"
@@ -26,6 +32,18 @@ type ContainerManager interface {
 	GetContainerById(id string) (dockertypes.ContainerJSON, error)
 	GetImageById(id string) (dockertypes.ImageInspect, error)
 	GetNetworkById(id string) (dockertypes.NetworkResource, error)
+
+	StopContainerById(id string) error
+	DeleteContainerById(id string) error
+	DeleteImageById(id string) error
+	DeleteNetworkById(id string) error
+
+	PullImage(name string, version string) (io.ReadCloser, error) //需要外部关闭readerClose
+	BuildImage(dockerfile string) (dockertypes.ImageBuildResponse, error)
+	GetContainerLogById(id string) (io.ReadCloser, error) //需要外部关闭readerClose
+
+	CreateContainer(imageId string, env []string, cmd []string, ports map[int]int, containerName string) (containertypes.ContainerCreateCreatedBody, error)
+	StartContainer(containerID string) error
 }
 
 type DockerClient interface {
@@ -37,6 +55,84 @@ type DockerClient interface {
 type containerManager struct {
 	cli DockerClient
 	ctx context.Context
+}
+
+//ports type is map[int]int k:container port v:host port
+func (cm *containerManager) CreateContainer(imageId string, env []string, cmd []string, ports map[int]int, containerName string) (containertypes.ContainerCreateCreatedBody, error) {
+	//set ports
+	var pm map[dockernat.Port][]dockernat.PortBinding
+	if len(ports) > 0 {
+		pm = make(map[dockernat.Port][]dockernat.PortBinding)
+		for k, v := range ports {
+			cp := dockernat.Port(strconv.Itoa(v))
+			hp := dockernat.PortBinding{
+				HostIP:   "",
+				HostPort: strconv.Itoa(k),
+			}
+			pbs := make([]dockernat.PortBinding, 0)
+			pbs = append(pbs, hp)
+			pm[cp] = pbs
+		}
+	}
+
+	return cm.cli.ContainerCreate(cm.ctx,
+		&container.Config{
+			Image: imageId,
+			Cmd:   cmd,
+			Env:   env,
+			Tty:   false,
+		},
+		&container.HostConfig{
+			PortBindings: pm,
+		},
+		nil, nil, containerName)
+}
+
+func (cm *containerManager) StartContainer(containerID string) error {
+	return cm.cli.ContainerStart(cm.ctx, containerID, dockertypes.ContainerStartOptions{})
+}
+
+func (cm *containerManager) GetContainerLogById(id string) (io.ReadCloser, error) {
+	return cm.cli.ContainerLogs(cm.ctx, id, dockertypes.ContainerLogsOptions{})
+}
+
+func (cm *containerManager) BuildImage(dockerfile string) (dockertypes.ImageBuildResponse, error) {
+	return cm.cli.ImageBuild(cm.ctx, bytes.NewBuffer([]byte(dockerfile)), dockertypes.ImageBuildOptions{})
+}
+
+func (cm *containerManager) PullImage(name string, version string) (io.ReadCloser, error) {
+	return cm.cli.ImagePull(cm.ctx, name+":"+version, dockertypes.ImagePullOptions{})
+}
+
+func (cm *containerManager) StopContainerById(id string) error {
+	err := cm.cli.ContainerStop(cm.ctx, id, nil)
+	if err != nil {
+		return err
+	} else {
+		return nil
+	}
+}
+
+func (cm *containerManager) DeleteContainerById(id string) error {
+	err := cm.cli.ContainerStop(cm.ctx, id, nil)
+	if err != nil {
+		return err
+	} else {
+		return cm.cli.ContainerRemove(cm.ctx, id, dockertypes.ContainerRemoveOptions{})
+	}
+}
+
+func (cm *containerManager) DeleteImageById(id string) error {
+	_, err := cm.cli.ImageRemove(cm.ctx, id, dockertypes.ImageRemoveOptions{})
+	if err != nil {
+		return err
+	} else {
+		return nil
+	}
+}
+
+func (cm *containerManager) DeleteNetworkById(id string) error {
+	return cm.cli.NetworkRemove(cm.ctx, id)
 }
 
 func (cm *containerManager) GetAllContainer() ([]types.ContainerInfo, error) {

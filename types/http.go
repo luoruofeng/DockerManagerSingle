@@ -15,8 +15,9 @@ const (
 type Mes string
 
 const (
-	ErrMes Mes = "Operate Failure"
-	SucMes Mes = "Operate Successfully"
+	ErrMes      Mes = "Operate Failure"
+	ErrParamMes Mes = "parameter is wrong"
+	SucMes      Mes = "Operate Successfully"
 )
 
 func NewResponseObj[V any](mesCode MesCode, mes Mes, content V) ResponseObj[V] {
@@ -39,7 +40,7 @@ func WriteJsonResponse(w http.ResponseWriter, err error, code MesCode, mes Mes, 
 	w.Header().Set("Content-Type", "application/json")
 	if err != nil {
 		w.WriteHeader(http.StatusInternalServerError)
-		ro := NewResponseObj(ErrCode, ErrMes, EmptyOjb{})
+		ro := NewResponseObj(ErrCode, mes, EmptyOjb{})
 		json.NewEncoder(w).Encode(ro)
 	} else {
 		w.WriteHeader(http.StatusOK)

@@ -13,9 +13,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"io"
 	"log"
+	"net"
 	"net/http"
 	"strconv"
+	"strings"
 	"time"
 
 	"github.com/luoruofeng/dockermanagersingle/container"
@@ -46,8 +49,9 @@ func downloadImage(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(types.ImageInfo{})
 }
 
+//TODO change GRPC
 // 通过镜像名称，（长连接）获取该镜像的拉取进度，镜像拉取完后
-func getPullImageLog(w http.ResponseWriter, r *http.Request) {
+func pullImageWithLog(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	t := vars["image_id"]
 	fmt.Println(t)
@@ -57,7 +61,7 @@ func getPullImageLog(w http.ResponseWriter, r *http.Request) {
 func getImages(w http.ResponseWriter, r *http.Request) {
 	is, err := cm.GetAllImage()
 	if err != nil {
-		types.WriteJsonResponse(w, err, types.ErrCode, types.ErrMes, types.EmptyOjb{})
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
 	} else {
 		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, is)
 	}
@@ -69,7 +73,7 @@ func getImage(w http.ResponseWriter, r *http.Request) {
 	iid := vars["image_id"]
 	i, err := cm.GetImageById(iid)
 	if err != nil {
-		types.WriteJsonResponse(w, err, types.ErrCode, types.ErrMes, types.EmptyOjb{})
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
 	} else {
 		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, i)
 	}
@@ -77,16 +81,46 @@ func getImage(w http.ResponseWriter, r *http.Request) {
 
 // 6.通过dockerfile 构建镜像
 func buildImageByDockerfile(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	t := vars["title"]
-	fmt.Println(t)
+	r.ParseForm()
+	f, fh, err := r.FormFile("dockerfile")
+	if err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.ErrParamMes, types.EmptyOjb{})
+		return
+	}
+	defer f.Close()
+
+	log.Printf("build image by dockerfile.file head:%v\n", fh)
+	b := make([]byte, 1024)
+
+	for {
+		n, err := f.Read(b)
+		if err != nil {
+			if n <= 0 && err == io.EOF {
+				break
+			} else {
+				types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+				return
+			}
+		}
+		if n > 0 {
+			b = append(b, b[:n]...)
+		}
+	}
+	fc := string(b)
+	log.Printf("build image by dockerfile. dockerfile content:%v\n", fc)
+	br, err := cm.BuildImage(fc)
+	if err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+	} else {
+		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, br)
+	}
 }
 
 // 获取所有容器实例
 func getContainers(w http.ResponseWriter, r *http.Request) {
 	cs, err := cm.GetAllContainer()
 	if err != nil {
-		types.WriteJsonResponse(w, err, types.ErrCode, types.ErrMes, types.EmptyOjb{})
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
 	} else {
 		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, cs)
 	}
@@ -98,24 +132,35 @@ func getContainerInfo(w http.ResponseWriter, r *http.Request) {
 	cid := vars["container_id"]
 	c, err := cm.GetContainerById(cid)
 	if err != nil {
-		types.WriteJsonResponse(w, err, types.ErrCode, types.ErrMes, types.EmptyOjb{})
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
 	} else {
 		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, c)
 	}
 }
 
+// TODO
 // 获取容器日志根据容器id
 func getContainerLog(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	t := vars["container_id"]
-	fmt.Println(t)
+	cid := vars["container_id"]
+	l, err := cm.GetContainerLogById(cid)
+	if err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+	} else {
+		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, l)
+	}
 }
 
 // 镜像id，删除镜像
 func deleteImage(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	t := vars["image_id"]
-	fmt.Println(t)
+	iid := vars["image_id"]
+	err := cm.DeleteImageById(iid)
+	if err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+	} else {
+		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, iid)
+	}
 }
 
 // 网络创建
@@ -131,7 +176,7 @@ func getNetwork(w http.ResponseWriter, r *http.Request) {
 	nid := vars["network_id"]
 	n, err := cm.GetNetworkById(nid)
 	if err != nil {
-		types.WriteJsonResponse(w, err, types.ErrCode, types.ErrMes, types.EmptyOjb{})
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
 	} else {
 		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, n)
 	}
@@ -141,7 +186,7 @@ func getNetwork(w http.ResponseWriter, r *http.Request) {
 func getNetworks(w http.ResponseWriter, r *http.Request) {
 	ns, err := cm.GetAllNetwork()
 	if err != nil {
-		types.WriteJsonResponse(w, err, types.ErrCode, types.ErrMes, types.EmptyOjb{})
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
 	} else {
 		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, ns)
 	}
@@ -150,36 +195,118 @@ func getNetworks(w http.ResponseWriter, r *http.Request) {
 // 删除网络根据网络id
 func deleteNetwork(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	t := vars["network_id"]
-	fmt.Println(t)
+	nid := vars["network_id"]
+	err := cm.DeleteNetworkById(nid)
+	if err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+	} else {
+		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, nid)
+	}
+}
+
+type ContainerCreateParam struct {
+	ContainerName string            `json:"container_name"`
+	ImageId       string            `json:"image_id"`
+	Cmd           string            `json:"cmd"`
+	Envs          map[string]string `json:"envs"`
+	Ports         []int             `json:"ports"`
+}
+
+func GetFreePort() (int, error) {
+	addr, err := net.ResolveTCPAddr("tcp", "localhost:0")
+	if err != nil {
+		return 0, err
+	}
+
+	l, err := net.ListenTCP("tcp", addr)
+	if err != nil {
+		return 0, err
+	}
+	defer l.Close()
+	return l.Addr().(*net.TCPAddr).Port, nil
 }
 
 // 通过镜像名称+版本号+CPU+CMD命令+Privileged(boolean)+内存+硬盘数+进程数+环境变量map+是否暴露端口，启动对应的容器，并启动，返回容器的所有信息
-func containerCreateAndRun(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	t := vars["network_id"]
-	fmt.Println(t)
+func containerCreate(w http.ResponseWriter, r *http.Request) {
+
+	var param ContainerCreateParam
+
+	r.ParseForm()
+	rb := r.Body
+	defer rb.Close()
+	if err := json.NewDecoder(rb).Decode(&param); err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+		return
+	}
+
+	var mp map[int]int
+	if len(param.Ports) > 0 {
+		mp = make(map[int]int)
+		for _, p := range param.Ports {
+			fp, err := GetFreePort()
+			if err != nil {
+				types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+				return
+			}
+			mp[fp] = p
+		}
+	}
+	var cmd []string
+	if param.Cmd != "" {
+		cmd = strings.Split(param.Cmd, " ")
+	}
+
+	var envs []string
+	if param.Envs != nil {
+		envs = make([]string, 0)
+		for k, v := range param.Envs {
+			envs = append(envs, strings.ReplaceAll(k, "=", "\\=")+"="+strings.ReplaceAll(v, "=", "\\="))
+		}
+	}
+
+	log.Println("create container .params is ", param)
+	ccb, err := cm.CreateContainer(param.ImageId, envs, cmd, mp, param.ContainerName)
+	if err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+	} else {
+		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, ccb)
+	}
 }
 
 // 启动对应的容器
 func containerRun(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	t := vars["container_id"]
-	fmt.Println(t)
+	cid := vars["container_id"]
+	err := cm.StartContainer(cid)
+	if err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+	} else {
+		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, cid)
+	}
 }
 
 // 容器id，停止，删除容器
 func containerStop(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	t := vars["container_id"]
-	fmt.Println(t)
+	cid := vars["container_id"]
+	err := cm.StopContainerById(cid)
+	if err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+	} else {
+		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, cid)
+	}
 }
 
 // 容器id，停止，删除容器
 func containerStopAndRemove(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
-	t := vars["network_id"]
-	fmt.Println(t)
+	nid := vars["container_id"]
+	err := cm.DeleteContainerById(nid)
+	if err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+	} else {
+		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, nid)
+	}
 }
 
 // 通过容器id，进入容器，(长连接)并可以通过命令操作容器
@@ -190,8 +317,7 @@ func operateContainer(w http.ResponseWriter, r *http.Request) {
 }
 
 func addHandler(r *mux.Router) {
-	r.HandleFunc("/image", downloadImage).Methods("POST")
-	r.HandleFunc("/image/log/{image_id}", getPullImageLog).Methods("GET")
+	r.HandleFunc("/image/pull/{image_name}/{image_version}", pullImageWithLog).Methods("GET")
 	r.HandleFunc("/images", getImages).Methods("GET")
 	r.HandleFunc("/image/{image_id}", getImage).Methods("GET")
 	r.HandleFunc("/image/{image_id}", deleteImage).Methods("DELETE")
@@ -199,7 +325,7 @@ func addHandler(r *mux.Router) {
 	r.HandleFunc("/containers", getContainers).Methods("GET")
 	r.HandleFunc("/container/{container_id}", getContainerInfo).Methods("GET")
 	r.HandleFunc("/container/log/{container_id}", getContainerLog).Methods("GET")
-	r.HandleFunc("/container", containerCreateAndRun).Methods("POST")
+	r.HandleFunc("/container", containerCreate).Methods("POST")
 	r.HandleFunc("/container/start/{container_id}", containerRun).Methods("PUT")
 	r.HandleFunc("/container/stop/{container_id}", containerStop).Methods("PUT")
 	r.HandleFunc("/container/{container_id}", containerStopAndRemove).Methods("DELETE")
