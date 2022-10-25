@@ -13,6 +13,7 @@ import (
 	dockertypes "github.com/docker/docker/api/types"
 	"github.com/docker/docker/api/types/container"
 	containertypes "github.com/docker/docker/api/types/container"
+	networktypes "github.com/docker/docker/api/types/network"
 	dockernat "github.com/docker/go-connections/nat"
 
 	dockerfilters "github.com/docker/docker/api/types/filters"
@@ -44,6 +45,10 @@ type ContainerManager interface {
 
 	CreateContainer(imageId string, env []string, cmd []string, ports map[int]int, containerName string) (containertypes.ContainerCreateCreatedBody, error)
 	StartContainer(containerID string) error
+
+	CreateNetwork(name string, subnet string, gateway string) (dockertypes.NetworkCreateResponse, error)
+	ConnectNetwork(networkId string, containerId string) error
+	DisconnectNetwork(networkId string, containerId string) error
 }
 
 type DockerClient interface {
@@ -55,6 +60,30 @@ type DockerClient interface {
 type containerManager struct {
 	cli DockerClient
 	ctx context.Context
+}
+
+func (cm *containerManager) CreateNetwork(name string, subnet string, gateway string) (dockertypes.NetworkCreateResponse, error) {
+	var cs []networktypes.IPAMConfig
+	cs = append(cs, networktypes.IPAMConfig{
+		Subnet:  subnet,
+		Gateway: gateway,
+	})
+
+	return cm.cli.NetworkCreate(cm.ctx, name, dockertypes.NetworkCreate{
+		CheckDuplicate: true,
+		IPAM: &networktypes.IPAM{
+			Driver: "default",
+			Config: cs,
+		},
+	})
+}
+
+func (cm *containerManager) ConnectNetwork(networkId string, containerId string) error {
+	return cm.cli.NetworkConnect(cm.ctx, networkId, containerId, &networktypes.EndpointSettings{})
+}
+
+func (cm *containerManager) DisconnectNetwork(networkId string, containerId string) error {
+	return cm.cli.NetworkDisconnect(cm.ctx, networkId, containerId, true)
 }
 
 //ports type is map[int]int k:container port v:host port

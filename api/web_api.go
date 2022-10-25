@@ -165,9 +165,17 @@ func deleteImage(w http.ResponseWriter, r *http.Request) {
 
 // 网络创建
 func createNewwork(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	t := vars["image_id"]
-	fmt.Println(t)
+	r.ParseForm()
+	subnet := r.Form.Get("subnet")
+	gateway := r.Form.Get("gateway")
+	name := r.Form.Get("name")
+	log.Printf("create network name:%v subnet:%v gateway:%v\n", name, subnet, gateway)
+	nr, err := cm.CreateNetwork(name, subnet, gateway)
+	if err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+	} else {
+		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, nr)
+	}
 }
 
 // 根据id获取网络信息
