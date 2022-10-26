@@ -89,13 +89,27 @@ func (cm *containerManager) DisconnectNetwork(networkId string, containerId stri
 //ports type is map[int]int k:container port v:host port
 func (cm *containerManager) CreateContainer(imageId string, env []string, cmd []string, ports map[int]int, containerName string) (containertypes.ContainerCreateCreatedBody, error) {
 	//set ports
+	var portSet dockernat.PortSet
+	if len(ports) > 0 {
+		portSet = make(map[dockernat.Port]struct{}, 0)
+		for _, v := range ports {
+			cp := dockernat.Port(strconv.Itoa(v) + "/tcp")
+			hp := struct{}{}
+			// dockernat.PortBinding{
+			// 	HostIP:   "0.0.0.0",
+			// 	HostPort: strconv.Itoa(k),
+			// }
+			portSet[cp] = hp
+		}
+	}
+
 	var pm map[dockernat.Port][]dockernat.PortBinding
 	if len(ports) > 0 {
 		pm = make(map[dockernat.Port][]dockernat.PortBinding)
 		for k, v := range ports {
-			cp := dockernat.Port(strconv.Itoa(v))
+			cp := dockernat.Port(strconv.Itoa(v) + "/tcp")
 			hp := dockernat.PortBinding{
-				HostIP:   "",
+				HostIP:   "0.0.0.0",
 				HostPort: strconv.Itoa(k),
 			}
 			pbs := make([]dockernat.PortBinding, 0)
@@ -106,10 +120,11 @@ func (cm *containerManager) CreateContainer(imageId string, env []string, cmd []
 
 	return cm.cli.ContainerCreate(cm.ctx,
 		&container.Config{
-			Image: imageId,
-			Cmd:   cmd,
-			Env:   env,
-			Tty:   false,
+			Image:        imageId,
+			Cmd:          cmd,
+			Env:          env,
+			Tty:          false,
+			ExposedPorts: portSet,
 		},
 		&container.HostConfig{
 			PortBindings: pm,

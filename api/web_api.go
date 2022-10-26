@@ -163,6 +163,30 @@ func deleteImage(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
+func connectNewwork(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	cid := vars["container_id"]
+	nid := vars["network_id"]
+	err := cm.ConnectNetwork(nid, cid)
+	if err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+	} else {
+		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, nil)
+	}
+}
+
+func disconnectNewwork(w http.ResponseWriter, r *http.Request) {
+	vars := mux.Vars(r)
+	cid := vars["container_id"]
+	nid := vars["network_id"]
+	err := cm.DisconnectNetwork(nid, cid)
+	if err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+	} else {
+		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, nil)
+	}
+}
+
 // 网络创建
 func createNewwork(w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
@@ -338,10 +362,12 @@ func addHandler(r *mux.Router) {
 	r.HandleFunc("/container/stop/{container_id}", containerStop).Methods("PUT")
 	r.HandleFunc("/container/{container_id}", containerStopAndRemove).Methods("DELETE")
 	r.HandleFunc("/network", createNewwork).Methods("POST")
+	r.HandleFunc("/network/conn/{container_id}/{network_id}", connectNewwork).Methods("POST")
+	r.HandleFunc("/network/disconn/{container_id}/{network_id}", disconnectNewwork).Methods("POST")
 	r.HandleFunc("/network/{network_id}", getNetwork).Methods("GET")
 	r.HandleFunc("/networks", getNetworks).Methods("GET")
 	r.HandleFunc("/network/{network_id}", deleteNetwork).Methods("DELETE")
-	r.HandleFunc("/container/operation/{container_id}", operateContainer).Methods("POST")
+	r.HandleFunc("/container/operation/{container_id}", operateContainer).Methods("POST") //TODO
 }
 
 func Start(ctx context.Context, e *errgroup.Group, port int, readTimeout int, writeTimeout int, idleTimeout int) {
