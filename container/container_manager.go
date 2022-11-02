@@ -49,6 +49,10 @@ type ContainerManager interface {
 	CreateNetwork(name string, subnet string, gateway string) (dockertypes.NetworkCreateResponse, error)
 	ConnectNetwork(networkId string, containerId string) error
 	DisconnectNetwork(networkId string, containerId string) error
+
+	// ConnContainer(id string) (net.Conn, *bufio.Reader, error)
+	ConnContainer(id string) (dockertypes.HijackedResponse, error)
+	BashContainer(id string) (*dockertypes.HijackedResponse, error)
 }
 
 type DockerClient interface {
@@ -61,6 +65,49 @@ type containerManager struct {
 	cli DockerClient
 	ctx context.Context
 }
+
+func (cm *containerManager) ConnContainer(id string) (dockertypes.HijackedResponse, error) {
+	return cm.cli.ContainerAttach(cm.ctx, id,
+		dockertypes.ContainerAttachOptions{
+			Stderr: true,
+			Stdout: true,
+			Stdin:  true,
+			Stream: true,
+			// Logs:   true,
+		})
+}
+
+func (cm *containerManager) BashContainer(id string) (*dockertypes.HijackedResponse, error) {
+	execConfig := dockertypes.ExecConfig{Privileged: false, Tty: true, AttachStdout: true, AttachStderr: true, AttachStdin: true, Cmd: []string{"/bin/bash"}}
+	respIdExecCreate, err := cm.cli.ContainerExecCreate(context.Background(), id, execConfig)
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+	respId, err := cm.cli.ContainerExecAttach(context.Background(), respIdExecCreate.ID, dockertypes.ExecStartCheck{Tty: true})
+	if err != nil {
+		log.Println(err)
+		return nil, err
+	}
+	return &respId, nil
+}
+
+// func (cm *containerManager) ConnContainer(id string) (net.Conn, *bufio.Reader, error) {
+// 	hijackedResponse, err := cm.cli.ContainerAttach(cm.ctx, id,
+// 		dockertypes.ContainerAttachOptions{
+// 			Stderr: true,
+// 			Stdout: true,
+// 			Stdin:  true,
+// 			Stream: true,
+// 		})
+// 	if err != nil {
+// 		return nil, nil, err
+// 	} else {
+// 		go io.Copy(os.Stdout, hijackedResponse.Reader)
+// 		go io.Copy(os.Stderr, hijackedResponse.Reader)
+// 		return hijackedResponse.Conn, hijackedResponse.Reader, nil
+// 	}
+// }
 
 func (cm *containerManager) CreateNetwork(name string, subnet string, gateway string) (dockertypes.NetworkCreateResponse, error) {
 	var cs []networktypes.IPAMConfig
@@ -162,7 +209,7 @@ func (cm *containerManager) DeleteContainerById(id string) error {
 	if err != nil {
 		return err
 	} else {
-		return cm.cli.ContainerRemove(cm.ctx, id, dockertypes.ContainerRemoveOptions{})
+		return cm.cli.ContainerRemove(cm.ctx, id, dockertypes.ContainerRemoveOptions{Force: true})
 	}
 }
 

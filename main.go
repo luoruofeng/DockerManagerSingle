@@ -12,6 +12,7 @@ import (
 
 	"github.com/luoruofeng/dockermanagersingle/api"
 	"github.com/luoruofeng/dockermanagersingle/container"
+	"github.com/luoruofeng/dockermanagersingle/grpc"
 	"github.com/luoruofeng/dockermanagersingle/types"
 	"golang.org/x/sync/errgroup"
 
@@ -25,7 +26,7 @@ func main() {
 	defer cancel()
 	e, ctx := errgroup.WithContext(ctx)
 
-	filePath, proxyPort, apiPort := ReadConfigFlag()
+	filePath, proxyPort, apiPort, grpcPort := ReadConfigFlag()
 
 	_, err := ReadConfig(filePath)
 	if err != nil {
@@ -42,9 +43,13 @@ func main() {
 		types.GConfig.ApiPort = *apiPort
 	}
 
-	log.Printf("args(proxyPort=%d apiPort=%d)", types.GConfig.ProxyPort, types.GConfig.ApiPort)
+	if *grpcPort != 0 {
+		types.GConfig.GrpcPort = *grpcPort
+	}
 
-	cli, err := dockerclient.NewClientWithOpts(dockerclient.FromEnv)
+	log.Printf("args(proxyPort=%d apiPort=%d)\n", types.GConfig.ProxyPort, types.GConfig.ApiPort)
+
+	cli, err := dockerclient.NewClientWithOpts(dockerclient.FromEnv, dockerclient.WithAPIVersionNegotiation())
 	if err != nil {
 		log.Println("Docker client init failed. " + err.Error())
 		cancel()
@@ -53,6 +58,12 @@ func main() {
 	}
 	container.InitContainerManager(ctx, cli)
 	api.Start(ctx, e, types.GConfig.ApiPort, types.GConfig.ApiReadTimeout, types.GConfig.ApiWriteTimeout, types.GConfig.ApiIdleTimeout)
+	err = grpc.Start(ctx, e, types.GConfig.GrpcPort)
+	if err != nil {
+		cancel()
+		goto ERR
+	}
+
 	// httpProxy.Start(ctx, cancel, types.GConfig.ProxyPort)
 
 ERR:
@@ -60,10 +71,11 @@ ERR:
 	log.Println("DockerManagerSingle EXIT")
 }
 
-func ReadConfigFlag() (configFile string, proxyPort *int, apiPort *int) {
+func ReadConfigFlag() (configFile string, proxyPort *int, apiPort *int, grpcPort *int) {
 	configFile = *flag.String("config", "./config.yaml", "The configuration yaml file")
-	proxyPort = flag.Int("proxy_port", 0, "The proxy url's port")
-	apiPort = flag.Int("api_port", 0, "The api url's port")
+	proxyPort = flag.Int("proxy_port", 0, "The proxy server url's port")
+	grpcPort = flag.Int("grpc_port", 0, "The grpc server url's port")
+	apiPort = flag.Int("api_port", 0, "The api server url's port")
 	flag.Parse()
 	return
 }

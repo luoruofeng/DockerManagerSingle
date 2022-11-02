@@ -385,12 +385,13 @@ func Start(ctx context.Context, e *errgroup.Group, port int, readTimeout int, wr
 	}
 
 	e.Go(func() error {
-		log.Printf("api is running... port:%d \n", port)
+		log.Printf("api server is running... port:%d \n", port)
 		err := srv.ListenAndServe()
 		if err != nil {
-			log.Println("web_api server is stoped. " + err.Error())
+			log.Println("web_api server is stoped. error:" + err.Error())
 			return err
 		} else {
+			log.Println("web_api server is stoped gracefully. ")
 			return nil
 		}
 	})

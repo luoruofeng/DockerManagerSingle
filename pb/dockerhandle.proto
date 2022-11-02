@@ -1,0 +1,60 @@
+syntax = "proto3";
+
+option go_package = "github.com/luoruofeng/dockermanagersingle/pb";
+option java_multiple_files = true;
+option java_package = "io.grpc.security.pb";
+option java_outer_classname = "DockerHandle";
+
+
+package pb;
+
+
+// The dockerhandle service definition.
+service DockerHandle {
+
+    // Sends and recv data
+    rpc Operation (stream OperationRequest) returns (stream DialogueReply) {}
+    
+  
+  // Get pull image log
+  rpc GetPullImageLog (GetPullImageLogRequest) returns (stream DialogueReply) {}
+
+
+  
+  // Get container log
+  rpc GetContainerLog (GetContainerRequest) returns (stream DialogueReply) {}
+}
+
+message OperationRequest {
+    oneof info{
+        string containerId = 1;
+        bytes data = 2;
+    }
+}
+
+message DialogueReplyMeta {
+    int32 code = 2; 
+    string errormes = 3;
+    int32 duration = 4;//operte duration second
+}
+
+message DialogueReply {
+    oneof info{
+        string data = 1;
+        DialogueReplyMeta meta = 2;    
+    }
+}
+
+
+message GetPullImageLogRequest {
+    string imageId = 1;
+}
+
+message GetContainerRequest {
+    string containerId = 1;
+}
+
+// cd pb
+// protoc --go_out=. --go_opt=paths=source_relative \
+//     --go-grpc_out=. --go-grpc_opt=paths=source_relative \
+//     dockerhandle.proto
