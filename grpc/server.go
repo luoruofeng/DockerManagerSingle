@@ -60,7 +60,7 @@ func getDuration(stime time.Time) int32 {
 }
 
 func (s *server) Operation(stream pb.DockerHandle_OperationServer) error {
-	log.Printf("start Operation handle. stream: %v\n", stream)
+	log.Println("Start: Operation handle.")
 
 	// variable of meta for send
 	replymeta := createMetaDialogueReply()
@@ -93,92 +93,132 @@ func (s *server) Operation(stream pb.DockerHandle_OperationServer) error {
 	stime := time.Now()
 	//get container bash
 	hijack, err := s.cm.BashContainer(cid)
-	log.Printf("get container bash.\n")
+	log.Printf("Get container connection.\n")
 	if err != nil {
 		log.Println(err.Error())
 		setMetaReply(m, "bash container failed. "+err.Error(), -1, getDuration(stime))
 		stream.Send(replymeta)
 		return err
 	}
-	defer hijack.Close()
+	defer func() {
+		log.Println("Close container connection.")
+		hijack.Close()
+	}()
 
 	//get cmd line from grpc caller and send to hijack
 	eg, ctx := errgroup.WithContext(context.Background())
 
-	eg.Go(
-		func() error {
-			for {
-				select {
-				case <-ctx.Done():
-
-					fmt.Println("---------------------1")
-					return nil
-				default:
-					recvdata, err = stream.Recv()
-					if err != nil {
-						setMetaReply(m, "I got EOF and i'm DONE", -1, 0)
-						stream.Send(replymeta)
-						return err
-					}
-					rbs := recvdata.GetData()
-					rs := string(rbs)
-					if strings.ToLower(rs) == "exit" {
-						fmt.Println("read EXIT from client")
-						setMetaReply(m, "", 1, getDuration(stime))
-						stream.Send(replymeta)
-						return errors.New("user send exit")
-					}
-					_, err = hijack.Conn.Write(rbs)
-					if err != nil {
-						m, _ := replymeta.Info.(*pb.DialogueReply_Meta)
-						dt := int32(time.Since(stime)/time.Millisecond) / 1000
-						setMetaReply(m, "hijack write content failed. content:"+rs+" error:"+err.Error(), -1, dt)
-						stream.Send(replymeta)
-						return err
-					}
-				}
-			}
-		},
-	)
-
-	//read container data from hijact and write to grpc caller
 	eg.Go(func() error {
-		bufReader := bufio.NewReader(hijack.Reader)
+		defer func() {
+			log.Println("Exit: CMD reader")
+		}()
 		for {
 			select {
 			case <-ctx.Done():
-				fmt.Println("---------------------")
 				return nil
 			default:
-				line, _, err := bufReader.ReadLine()
+				recvdata, err = stream.Recv()
 				if err != nil {
 					if err == io.EOF {
 						setMetaReply(m, "", 1, getDuration(stime))
 						stream.Send(replymeta)
+						log.Println("Quit reason: Got EOF")
 						return err
 					} else {
-						setMetaReply(m, "hijack read content failed. content:"+string(line)+" error:"+err.Error(), -1, getDuration(stime))
+						setMetaReply(m, err.Error(), -1, 0)
 						stream.Send(replymeta)
 						return err
 					}
 				}
+				rbs := recvdata.GetData()
+				rs := string(rbs)
+				if strings.Trim(strings.ToLower(rs), "\n") == "exit" {
+					log.Println("Quit reason: Read EXIT from client")
+					setMetaReply(m, "", 1, getDuration(stime))
+					stream.Send(replymeta)
+					return errors.New("Quit reason: User send exit")
+				}
+				_, err = hijack.Conn.Write(rbs)
+				if err != nil {
+					m, _ := replymeta.Info.(*pb.DialogueReply_Meta)
+					dt := int32(time.Since(stime)/time.Millisecond) / 1000
+					setMetaReply(m, "Quit reason: hijack write content failed. content:"+rs+" error:"+err.Error(), -1, dt)
+					stream.Send(replymeta)
+					return err
+				}
+			}
+		}
+	})
+
+	containerMesChan := make(chan []byte, 10000)
+	containerErrChan := make(chan error, 10000)
+	isContainerChanClosed := false
+
+	defer func() {
+		isContainerChanClosed = true
+		close(containerMesChan)
+		close(containerErrChan)
+	}()
+
+	//read container data from hijact to containerMesChan.ensure this func quit successfully when parent func quit.
+	go func() {
+		defer func() {
+			log.Println("Exit: Container reader.")
+		}()
+		bufReader := bufio.NewReader(hijack.Reader)
+		for {
+			line, _, err := bufReader.ReadLine()
+			if err != nil {
+				containerErrChan <- err
+			} else {
+				if isContainerChanClosed {
+					return
+				}
+				containerMesChan <- line
+			}
+		}
+	}()
+
+	//Write containerMesChan's content to grpc caller
+	eg.Go(func() error {
+		defer func() {
+			log.Println("Exit: Writer")
+		}()
+		for {
+			select {
+			case <-ctx.Done():
+				return nil
+			case line := <-containerMesChan:
 
 				datareply := createDataDialogueReply()
 				d, ok := datareply.Info.(*pb.DialogueReply_Data)
 				if !ok {
 					setMetaReply(m, "set data reply failed. ", -1, getDuration(stime))
-					fmt.Println(replymeta, replymeta.Info)
+					log.Println(replymeta, replymeta.Info)
 					stream.Send(replymeta)
 					return errors.New("set data reply failed.")
 				}
 				setDataReply(d, string(line))
 				stream.Send(datareply)
+			case err := <-containerErrChan:
+				if err != nil {
+					if err == io.EOF {
+						setMetaReply(m, "", 1, getDuration(stime))
+						stream.Send(replymeta)
+						log.Println("Got container EOF.")
+						return err
+					} else {
+						setMetaReply(m, "container read content failed.  error:"+err.Error(), -1, getDuration(stime))
+						stream.Send(replymeta)
+						return err
+					}
+				}
 			}
 		}
 	})
 
 	err = eg.Wait()
-	log.Println("Stop operation handle. error:" + err.Error())
+	log.Println("Exit: operation handle. error:" + err.Error())
 	return err
 }
 func (s *server) GetPullImageLog(req *pb.GetPullImageLogRequest, resp pb.DockerHandle_GetPullImageLogServer) error {

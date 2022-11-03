@@ -27,7 +27,7 @@ func Operation(client pb.DockerHandleClient) {
 		{[]byte("touch luoruofeng\n")},
 		{[]byte("ls\n")},
 		{[]byte("echo testecho\n")},
-		// {[]byte("Exit\n")},
+		{[]byte("Exit\n")},
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 65*time.Second)
 	defer cancel()
@@ -47,10 +47,10 @@ func Operation(client pb.DockerHandleClient) {
 				return
 			}
 			if err != nil {
-				log.Fatalf("stream recv data failed: %v", err)
+				log.Printf("stream recv data failed: %v\n", err.Error())
 				return
 			}
-			fmt.Printf("Got data: %v . \nmeta: %v\n\n", in.GetData(), in.GetMeta())
+			fmt.Printf("Got data: %v\nGot meta: %v\n\n", in.GetData(), in.GetMeta())
 
 			//quit
 			if in.GetMeta() != nil && in.GetMeta().Code == -1 {
@@ -79,6 +79,7 @@ func Operation(client pb.DockerHandleClient) {
 		time.Sleep(time.Second * 1)
 	}
 
+	time.Sleep(time.Second * 8)
 	fmt.Println("closesend!!!!!!")
 	stream.CloseSend()
 	<-waitc
