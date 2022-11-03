@@ -106,18 +106,50 @@ func (s *server) Operation(stream pb.DockerHandle_OperationServer) error {
 	}()
 
 	//get cmd line from grpc caller and send to hijack
-	eg, ctx := errgroup.WithContext(context.Background())
+	bctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(60))
+	defer cancel()
 
+	cmdMesChan := make(chan *pb.OperationRequest, 10000)
+	cmdErrChan := make(chan error, 10000)
+	isCmdChanClosed := false
+
+	defer func() {
+		isCmdChanClosed = true
+		close(cmdErrChan)
+		close(cmdMesChan)
+	}()
+
+	go func() {
+		defer func() {
+			log.Println("Exit: Cmd Chan Reader.")
+		}()
+		for {
+			recvdata, err = stream.Recv()
+			if err != nil {
+				if isCmdChanClosed {
+					return
+				}
+				cmdErrChan <- err
+				return
+			} else {
+				if isCmdChanClosed {
+					return
+				}
+				cmdMesChan <- recvdata
+			}
+		}
+	}()
+
+	eg, ctx := errgroup.WithContext(bctx)
 	eg.Go(func() error {
 		defer func() {
-			log.Println("Exit: CMD reader")
+			log.Println("Exit: CMD Reader")
 		}()
 		for {
 			select {
 			case <-ctx.Done():
 				return nil
-			default:
-				recvdata, err = stream.Recv()
+			case <-cmdErrChan:
 				if err != nil {
 					if err == io.EOF {
 						setMetaReply(m, "", 1, getDuration(stime))
@@ -130,6 +162,7 @@ func (s *server) Operation(stream pb.DockerHandle_OperationServer) error {
 						return err
 					}
 				}
+			case recvdata := <-cmdMesChan:
 				rbs := recvdata.GetData()
 				rs := string(rbs)
 				if strings.Trim(strings.ToLower(rs), "\n") == "exit" {
@@ -163,13 +196,17 @@ func (s *server) Operation(stream pb.DockerHandle_OperationServer) error {
 	//read container data from hijact to containerMesChan.ensure this func quit successfully when parent func quit.
 	go func() {
 		defer func() {
-			log.Println("Exit: Container reader.")
+			log.Println("Exit: Container Chan reader.")
 		}()
 		bufReader := bufio.NewReader(hijack.Reader)
 		for {
 			line, _, err := bufReader.ReadLine()
 			if err != nil {
+				if isContainerChanClosed {
+					return
+				}
 				containerErrChan <- err
+				return
 			} else {
 				if isContainerChanClosed {
 					return
@@ -182,7 +219,7 @@ func (s *server) Operation(stream pb.DockerHandle_OperationServer) error {
 	//Write containerMesChan's content to grpc caller
 	eg.Go(func() error {
 		defer func() {
-			log.Println("Exit: Writer")
+			log.Println("Exit: CMD Writer")
 		}()
 		for {
 			select {
@@ -218,7 +255,7 @@ func (s *server) Operation(stream pb.DockerHandle_OperationServer) error {
 	})
 
 	err = eg.Wait()
-	log.Println("Exit: operation handle. error:" + err.Error())
+	log.Println("Exit: operation handle.")
 	return err
 }
 func (s *server) GetPullImageLog(req *pb.GetPullImageLogRequest, resp pb.DockerHandle_GetPullImageLogServer) error {

@@ -27,7 +27,7 @@ func Operation(client pb.DockerHandleClient) {
 		{[]byte("touch luoruofeng\n")},
 		{[]byte("ls\n")},
 		{[]byte("echo testecho\n")},
-		{[]byte("Exit\n")},
+		// {[]byte("Exit\n")},
 	}
 	ctx, cancel := context.WithTimeout(context.Background(), 65*time.Second)
 	defer cancel()
@@ -70,16 +70,16 @@ func Operation(client pb.DockerHandleClient) {
 
 	//send cmds
 	for _, cmd := range datas {
+		time.Sleep(time.Second * 1)
 		orequest := &pb.OperationRequest{
 			Info: cmd,
 		}
 		if err := stream.Send(orequest); err != nil {
 			log.Fatalf("send cmd failed: stream.Send(%v) failed: %v", cmd, err)
 		}
-		time.Sleep(time.Second * 1)
 	}
 
-	time.Sleep(time.Second * 8)
+	time.Sleep(time.Second * 4)
 	fmt.Println("closesend!!!!!!")
 	stream.CloseSend()
 	<-waitc
