@@ -1,3 +1,5 @@
+api_enable: true
+grpc_enable: true
 api_port: 8998
 api_write_timeout: 15
 api_read_timeout: 15

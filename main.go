@@ -26,7 +26,7 @@ func main() {
 	defer cancel()
 	e, ctx := errgroup.WithContext(ctx)
 
-	filePath, proxyPort, apiPort, grpcPort := ReadConfigFlag()
+	filePath, proxyPort, apiPort, grpcPort, apiEnable, grpcEnable := ReadConfigFlag()
 
 	_, err := ReadConfig(filePath)
 	if err != nil {
@@ -47,7 +47,15 @@ func main() {
 		types.GConfig.GrpcPort = *grpcPort
 	}
 
-	log.Printf("args(proxyPort=%d apiPort=%d)\n", types.GConfig.ProxyPort, types.GConfig.ApiPort)
+	if !*grpcEnable {
+		types.GConfig.GRPCEnable = *grpcEnable
+	}
+
+	if !*apiEnable {
+		types.GConfig.APIEnable = *apiEnable
+	}
+
+	log.Printf("args(apiEnable=%v grpcEnable=%v proxyPort=%d apiPort=%d)\n", types.GConfig.APIEnable, types.GConfig.GRPCEnable, types.GConfig.ProxyPort, types.GConfig.ApiPort)
 
 	cli, err := dockerclient.NewClientWithOpts(dockerclient.FromEnv, dockerclient.WithAPIVersionNegotiation())
 	if err != nil {
@@ -57,11 +65,16 @@ func main() {
 
 	}
 	container.InitContainerManager(ctx, cli)
-	api.Start(ctx, e, types.GConfig.ApiPort, types.GConfig.ApiReadTimeout, types.GConfig.ApiWriteTimeout, types.GConfig.ApiIdleTimeout)
-	err = grpc.Start(ctx, e, types.GConfig.GrpcPort)
-	if err != nil {
-		cancel()
-		goto ERR
+	if types.GConfig.APIEnable {
+		api.Start(ctx, e, types.GConfig.ApiPort, types.GConfig.ApiReadTimeout, types.GConfig.ApiWriteTimeout, types.GConfig.ApiIdleTimeout)
+	}
+
+	if types.GConfig.GRPCEnable {
+		err = grpc.Start(ctx, e, types.GConfig.GrpcPort)
+		if err != nil {
+			cancel()
+			goto ERR
+		}
 	}
 
 	// httpProxy.Start(ctx, cancel, types.GConfig.ProxyPort)
@@ -71,7 +84,9 @@ ERR:
 	log.Println("DockerManagerSingle EXIT")
 }
 
-func ReadConfigFlag() (configFile string, proxyPort *int, apiPort *int, grpcPort *int) {
+func ReadConfigFlag() (configFile string, proxyPort *int, apiPort *int, grpcPort *int, apiEnable *bool, grpcEnable *bool) {
+	apiEnable = flag.Bool("api_enable", true, "API server is availability")
+	grpcEnable = flag.Bool("grpc_enable", true, "GRPC server is availability")
 	configFile = *flag.String("config", "./config.yaml", "The configuration yaml file")
 	proxyPort = flag.Int("proxy_port", 0, "The proxy server url's port")
 	grpcPort = flag.Int("grpc_port", 0, "The grpc server url's port")
