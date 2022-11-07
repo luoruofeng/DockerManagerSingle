@@ -1,6 +1,7 @@
 package grpc
 
 import (
+	"bufio"
 	"context"
 	"errors"
 	"fmt"
@@ -18,8 +19,6 @@ import (
 	"golang.org/x/sync/errgroup"
 
 	"google.golang.org/grpc"
-	"google.golang.org/grpc/codes"
-	"google.golang.org/grpc/status"
 )
 
 const ReadByteLen int = 1 << 8
@@ -262,11 +261,53 @@ func (s *server) Operation(stream pb.DockerHandle_OperationServer) error {
 	log.Println("Exit: operation handle.")
 	return err
 }
-func (s *server) GetPullImageLog(req *pb.GetPullImageLogRequest, resp pb.DockerHandle_GetPullImageLogServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetPullImageLog not implemented")
-}
-func (s *server) GetContainerLog(req *pb.GetContainerRequest, resp pb.DockerHandle_GetContainerLogServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetContainerLog not implemented")
+func (s *server) PullImageWithLog(req *pb.PullImageWithLogRequest, reply pb.DockerHandle_PullImageWithLogServer) error {
+	log.Println("Start: Image pull handle.")
+	stime := time.Now()
+	mreply := createMetaDialogueReply()
+	m, _ := mreply.Info.(*pb.DialogueReply_Meta)
+	dreply := createDataDialogueReply()
+	d, _ := dreply.Info.(*pb.DialogueReply_Data)
+
+	rc, err := container.GetCM().PullImage(req.ImageName, req.ImageVersion)
+	defer func() {
+		err := rc.Close()
+		if err != nil {
+			log.Println(err)
+		}
+		log.Println("End: Image pull handle.")
+	}()
+
+	if err != nil {
+		setMetaReply(m, err.Error(), -1, 0)
+		reply.Send(mreply)
+		return err
+	}
+
+	bufr := bufio.NewReader(rc)
+	for {
+		line, _, err := bufr.ReadLine()
+		if err != nil {
+			if err == io.EOF {
+				setMetaReply(m, "EOF", 1, getDuration(stime))
+				reply.Send(mreply)
+				return err
+			} else {
+				log.Println(err)
+				setMetaReply(m, err.Error(), -1, 0)
+				reply.Send(mreply)
+				return err
+			}
+		}
+		setDataReply(d, string(line))
+		err = reply.Send(dreply)
+		if err != nil {
+			log.Println(err)
+			setMetaReply(m, err.Error(), -1, 0)
+			reply.Send(mreply)
+			return err
+		}
+	}
 }
 
 func Start(ctx context.Context, e *errgroup.Group, port int) error {

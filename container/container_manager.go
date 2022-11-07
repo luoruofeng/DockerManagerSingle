@@ -77,7 +77,7 @@ func (cm *containerManager) ConnContainer(id string) (dockertypes.HijackedRespon
 }
 
 func (cm *containerManager) BashContainer(id string) (*dockertypes.HijackedResponse, error) {
-	execConfig := dockertypes.ExecConfig{Detach: false, Tty: true, AttachStdout: true, AttachStderr: true, AttachStdin: true, Cmd: []string{"/bin/bash"}}
+	execConfig := dockertypes.ExecConfig{Detach: false, Tty: true, AttachStdout: true, AttachStderr: true, AttachStdin: true, Cmd: []string{"sh"}}
 	respIdExecCreate, err := cm.cli.ContainerExecCreate(context.Background(), id, execConfig)
 	if err != nil {
 		log.Println(err)
@@ -166,7 +166,7 @@ func (cm *containerManager) StartContainer(containerID string) error {
 }
 
 func (cm *containerManager) GetContainerLogById(id string) (io.ReadCloser, error) {
-	return cm.cli.ContainerLogs(cm.ctx, id, dockertypes.ContainerLogsOptions{})
+	return cm.cli.ContainerLogs(cm.ctx, id, dockertypes.ContainerLogsOptions{ShowStdout: true, ShowStderr: true, Details: true})
 }
 
 func (cm *containerManager) BuildImage(dockerfile string) (dockertypes.ImageBuildResponse, error) {

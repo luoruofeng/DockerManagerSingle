@@ -119,6 +119,36 @@ func Operation(client pb.DockerHandleClient) {
 	fmt.Println("Done")
 }
 
+func ImagePull(client pb.DockerHandleClient) {
+	in := pb.PullImageWithLogRequest{
+		ImageName:    "redis",
+		ImageVersion: "6.0",
+	}
+	stream, err := client.PullImageWithLog(context.Background(), &in)
+	if err != nil {
+		log.Fatalf("call operation failed: %v", err)
+	}
+
+	for {
+		reply, err := stream.Recv()
+		if err != nil {
+			if err == io.EOF {
+				fmt.Println("EOF")
+				return
+			} else {
+				fmt.Println(err)
+				return
+			}
+		}
+		if reply.GetMeta() != nil {
+			fmt.Printf("meta:%v\n", reply.GetMeta())
+		} else {
+			fmt.Println(reply.GetData())
+		}
+	}
+
+}
+
 func main() {
 	flag.Parse()
 	var opts []grpc.DialOption
@@ -130,6 +160,8 @@ func main() {
 	defer conn.Close()
 	client := pb.NewDockerHandleClient(conn)
 	// op
-	Operation(client)
+	// Operation(client)
+	// pull image
+	ImagePull(client)
 
 }

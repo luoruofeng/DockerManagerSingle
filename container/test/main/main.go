@@ -18,23 +18,7 @@ func main() {
 	}
 	c.InitContainerManager(context.Background(), cli)
 
-	c.GetCM().DeleteContainerById("testconn")
-
-	envs := make([]string, 0)
-	envs = append(envs, "POSTGRES_PASSWORD=abc")
-	createCreatedBody, err := c.GetCM().CreateContainer("e270a11b9c8a", envs, nil, nil, "testconn")
-	if err != nil {
-		log.Fatal(err)
-	} else {
-		log.Println(createCreatedBody)
-	}
-
-	time.Sleep(time.Second * 4)
-
-	c.GetCM().StartContainer(createCreatedBody.ID)
-	time.Sleep(time.Second * 4)
-
-	respId, _ := c.GetCM().BashContainer(createCreatedBody.ID)
+	respId, _ := c.GetCM().BashContainer("2c9b79533585e5b124ba10c49b76adee7df0ac525965bad50b8ad6c9859871b6")
 	defer respId.Close()
 
 	go io.Copy(os.Stdout, respId.Reader)

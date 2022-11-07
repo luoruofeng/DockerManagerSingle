@@ -49,14 +49,6 @@ func downloadImage(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(types.ImageInfo{})
 }
 
-//TODO change GRPC
-// 通过镜像名称，（长连接）获取该镜像的拉取进度，镜像拉取完后
-func pullImageWithLog(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	t := vars["image_id"]
-	fmt.Println(t)
-}
-
 // 获取所有本地镜像
 func getImages(w http.ResponseWriter, r *http.Request) {
 	is, err := cm.GetAllImage()
@@ -138,16 +130,26 @@ func getContainerInfo(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// TODO
 // 获取容器日志根据容器id
 func getContainerLog(w http.ResponseWriter, r *http.Request) {
 	vars := mux.Vars(r)
 	cid := vars["container_id"]
-	l, err := cm.GetContainerLogById(cid)
+	rc, err := cm.GetContainerLogById(cid)
+	if err != nil {
+		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
+		return
+	}
+	defer func() {
+		err := rc.Close()
+		if err != nil {
+			log.Println(err)
+		}
+	}()
+	bs, err := io.ReadAll(rc)
 	if err != nil {
 		types.WriteJsonResponse(w, err, types.ErrCode, types.Mes(err.Error()), types.EmptyOjb{})
 	} else {
-		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, l)
+		types.WriteJsonResponse(w, err, types.SucCode, types.SucMes, string(bs))
 	}
 }
 
@@ -341,15 +343,7 @@ func containerStopAndRemove(w http.ResponseWriter, r *http.Request) {
 	}
 }
 
-// 通过容器id，进入容器，(长连接)并可以通过命令操作容器
-func operateContainer(w http.ResponseWriter, r *http.Request) {
-	vars := mux.Vars(r)
-	t := vars["network_id"]
-	fmt.Println(t)
-}
-
 func addHandler(r *mux.Router) {
-	r.HandleFunc("/image/pull/{image_name}/{image_version}", pullImageWithLog).Methods("GET")
 	r.HandleFunc("/images", getImages).Methods("GET")
 	r.HandleFunc("/image/{image_id}", getImage).Methods("GET")
 	r.HandleFunc("/image/{image_id}", deleteImage).Methods("DELETE")
@@ -367,7 +361,6 @@ func addHandler(r *mux.Router) {
 	r.HandleFunc("/network/{network_id}", getNetwork).Methods("GET")
 	r.HandleFunc("/networks", getNetworks).Methods("GET")
 	r.HandleFunc("/network/{network_id}", deleteNetwork).Methods("DELETE")
-	r.HandleFunc("/container/operation/{container_id}", operateContainer).Methods("POST") //TODO
 }
 
 func Start(ctx context.Context, e *errgroup.Group, port int, readTimeout int, writeTimeout int, idleTimeout int) {

@@ -21,9 +21,7 @@ type DockerHandleClient interface {
 	// Sends and recv data
 	Operation(ctx context.Context, opts ...grpc.CallOption) (DockerHandle_OperationClient, error)
 	// Get pull image log
-	GetPullImageLog(ctx context.Context, in *GetPullImageLogRequest, opts ...grpc.CallOption) (DockerHandle_GetPullImageLogClient, error)
-	// Get container log
-	GetContainerLog(ctx context.Context, in *GetContainerRequest, opts ...grpc.CallOption) (DockerHandle_GetContainerLogClient, error)
+	PullImageWithLog(ctx context.Context, in *PullImageWithLogRequest, opts ...grpc.CallOption) (DockerHandle_PullImageWithLogClient, error)
 }
 
 type dockerHandleClient struct {
@@ -65,12 +63,12 @@ func (x *dockerHandleOperationClient) Recv() (*DialogueReply, error) {
 	return m, nil
 }
 
-func (c *dockerHandleClient) GetPullImageLog(ctx context.Context, in *GetPullImageLogRequest, opts ...grpc.CallOption) (DockerHandle_GetPullImageLogClient, error) {
-	stream, err := c.cc.NewStream(ctx, &DockerHandle_ServiceDesc.Streams[1], "/pb.DockerHandle/GetPullImageLog", opts...)
+func (c *dockerHandleClient) PullImageWithLog(ctx context.Context, in *PullImageWithLogRequest, opts ...grpc.CallOption) (DockerHandle_PullImageWithLogClient, error) {
+	stream, err := c.cc.NewStream(ctx, &DockerHandle_ServiceDesc.Streams[1], "/pb.DockerHandle/PullImageWithLog", opts...)
 	if err != nil {
 		return nil, err
 	}
-	x := &dockerHandleGetPullImageLogClient{stream}
+	x := &dockerHandlePullImageWithLogClient{stream}
 	if err := x.ClientStream.SendMsg(in); err != nil {
 		return nil, err
 	}
@@ -80,48 +78,16 @@ func (c *dockerHandleClient) GetPullImageLog(ctx context.Context, in *GetPullIma
 	return x, nil
 }
 
-type DockerHandle_GetPullImageLogClient interface {
+type DockerHandle_PullImageWithLogClient interface {
 	Recv() (*DialogueReply, error)
 	grpc.ClientStream
 }
 
-type dockerHandleGetPullImageLogClient struct {
+type dockerHandlePullImageWithLogClient struct {
 	grpc.ClientStream
 }
 
-func (x *dockerHandleGetPullImageLogClient) Recv() (*DialogueReply, error) {
-	m := new(DialogueReply)
-	if err := x.ClientStream.RecvMsg(m); err != nil {
-		return nil, err
-	}
-	return m, nil
-}
-
-func (c *dockerHandleClient) GetContainerLog(ctx context.Context, in *GetContainerRequest, opts ...grpc.CallOption) (DockerHandle_GetContainerLogClient, error) {
-	stream, err := c.cc.NewStream(ctx, &DockerHandle_ServiceDesc.Streams[2], "/pb.DockerHandle/GetContainerLog", opts...)
-	if err != nil {
-		return nil, err
-	}
-	x := &dockerHandleGetContainerLogClient{stream}
-	if err := x.ClientStream.SendMsg(in); err != nil {
-		return nil, err
-	}
-	if err := x.ClientStream.CloseSend(); err != nil {
-		return nil, err
-	}
-	return x, nil
-}
-
-type DockerHandle_GetContainerLogClient interface {
-	Recv() (*DialogueReply, error)
-	grpc.ClientStream
-}
-
-type dockerHandleGetContainerLogClient struct {
-	grpc.ClientStream
-}
-
-func (x *dockerHandleGetContainerLogClient) Recv() (*DialogueReply, error) {
+func (x *dockerHandlePullImageWithLogClient) Recv() (*DialogueReply, error) {
 	m := new(DialogueReply)
 	if err := x.ClientStream.RecvMsg(m); err != nil {
 		return nil, err
@@ -136,9 +102,7 @@ type DockerHandleServer interface {
 	// Sends and recv data
 	Operation(DockerHandle_OperationServer) error
 	// Get pull image log
-	GetPullImageLog(*GetPullImageLogRequest, DockerHandle_GetPullImageLogServer) error
-	// Get container log
-	GetContainerLog(*GetContainerRequest, DockerHandle_GetContainerLogServer) error
+	PullImageWithLog(*PullImageWithLogRequest, DockerHandle_PullImageWithLogServer) error
 	mustEmbedUnimplementedDockerHandleServer()
 }
 
@@ -149,11 +113,8 @@ type UnimplementedDockerHandleServer struct {
 func (UnimplementedDockerHandleServer) Operation(DockerHandle_OperationServer) error {
 	return status.Errorf(codes.Unimplemented, "method Operation not implemented")
 }
-func (UnimplementedDockerHandleServer) GetPullImageLog(*GetPullImageLogRequest, DockerHandle_GetPullImageLogServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetPullImageLog not implemented")
-}
-func (UnimplementedDockerHandleServer) GetContainerLog(*GetContainerRequest, DockerHandle_GetContainerLogServer) error {
-	return status.Errorf(codes.Unimplemented, "method GetContainerLog not implemented")
+func (UnimplementedDockerHandleServer) PullImageWithLog(*PullImageWithLogRequest, DockerHandle_PullImageWithLogServer) error {
+	return status.Errorf(codes.Unimplemented, "method PullImageWithLog not implemented")
 }
 func (UnimplementedDockerHandleServer) mustEmbedUnimplementedDockerHandleServer() {}
 
@@ -194,45 +155,24 @@ func (x *dockerHandleOperationServer) Recv() (*OperationRequest, error) {
 	return m, nil
 }
 
-func _DockerHandle_GetPullImageLog_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(GetPullImageLogRequest)
+func _DockerHandle_PullImageWithLog_Handler(srv interface{}, stream grpc.ServerStream) error {
+	m := new(PullImageWithLogRequest)
 	if err := stream.RecvMsg(m); err != nil {
 		return err
 	}
-	return srv.(DockerHandleServer).GetPullImageLog(m, &dockerHandleGetPullImageLogServer{stream})
+	return srv.(DockerHandleServer).PullImageWithLog(m, &dockerHandlePullImageWithLogServer{stream})
 }
 
-type DockerHandle_GetPullImageLogServer interface {
+type DockerHandle_PullImageWithLogServer interface {
 	Send(*DialogueReply) error
 	grpc.ServerStream
 }
 
-type dockerHandleGetPullImageLogServer struct {
+type dockerHandlePullImageWithLogServer struct {
 	grpc.ServerStream
 }
 
-func (x *dockerHandleGetPullImageLogServer) Send(m *DialogueReply) error {
-	return x.ServerStream.SendMsg(m)
-}
-
-func _DockerHandle_GetContainerLog_Handler(srv interface{}, stream grpc.ServerStream) error {
-	m := new(GetContainerRequest)
-	if err := stream.RecvMsg(m); err != nil {
-		return err
-	}
-	return srv.(DockerHandleServer).GetContainerLog(m, &dockerHandleGetContainerLogServer{stream})
-}
-
-type DockerHandle_GetContainerLogServer interface {
-	Send(*DialogueReply) error
-	grpc.ServerStream
-}
-
-type dockerHandleGetContainerLogServer struct {
-	grpc.ServerStream
-}
-
-func (x *dockerHandleGetContainerLogServer) Send(m *DialogueReply) error {
+func (x *dockerHandlePullImageWithLogServer) Send(m *DialogueReply) error {
 	return x.ServerStream.SendMsg(m)
 }
 
@@ -251,13 +191,8 @@ var DockerHandle_ServiceDesc = grpc.ServiceDesc{
 			ClientStreams: true,
 		},
 		{
-			StreamName:    "GetPullImageLog",
-			Handler:       _DockerHandle_GetPullImageLog_Handler,
-			ServerStreams: true,
-		},
-		{
-			StreamName:    "GetContainerLog",
-			Handler:       _DockerHandle_GetContainerLog_Handler,
+			StreamName:    "PullImageWithLog",
+			Handler:       _DockerHandle_PullImageWithLog_Handler,
 			ServerStreams: true,
 		},
 	},

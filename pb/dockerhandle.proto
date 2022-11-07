@@ -17,12 +17,7 @@ service DockerHandle {
     
   
   // Get pull image log
-  rpc GetPullImageLog (GetPullImageLogRequest) returns (stream DialogueReply) {}
-
-
-  
-  // Get container log
-  rpc GetContainerLog (GetContainerRequest) returns (stream DialogueReply) {}
+  rpc PullImageWithLog (PullImageWithLogRequest) returns (stream DialogueReply) {}
 }
 
 message OperationRequest {
@@ -46,13 +41,11 @@ message DialogueReply {
 }
 
 
-message GetPullImageLogRequest {
-    string imageId = 1;
+message PullImageWithLogRequest {
+    string imageName = 1;
+    string imageVersion = 2;
 }
 
-message GetContainerRequest {
-    string containerId = 1;
-}
 
 // cd pb
 // protoc --go_out=. --go_opt=paths=source_relative \
