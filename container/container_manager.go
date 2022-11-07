@@ -50,7 +50,6 @@ type ContainerManager interface {
 	ConnectNetwork(networkId string, containerId string) error
 	DisconnectNetwork(networkId string, containerId string) error
 
-	// ConnContainer(id string) (net.Conn, *bufio.Reader, error)
 	ConnContainer(id string) (dockertypes.HijackedResponse, error)
 	BashContainer(id string) (*dockertypes.HijackedResponse, error)
 }
@@ -78,36 +77,19 @@ func (cm *containerManager) ConnContainer(id string) (dockertypes.HijackedRespon
 }
 
 func (cm *containerManager) BashContainer(id string) (*dockertypes.HijackedResponse, error) {
-	execConfig := dockertypes.ExecConfig{Privileged: false, Tty: true, AttachStdout: true, AttachStderr: true, AttachStdin: true, Cmd: []string{"/bin/bash"}}
+	execConfig := dockertypes.ExecConfig{Detach: false, Tty: true, AttachStdout: true, AttachStderr: true, AttachStdin: true, Cmd: []string{"/bin/bash"}}
 	respIdExecCreate, err := cm.cli.ContainerExecCreate(context.Background(), id, execConfig)
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
-	respId, err := cm.cli.ContainerExecAttach(context.Background(), respIdExecCreate.ID, dockertypes.ExecStartCheck{Tty: true})
+	respId, err := cm.cli.ContainerExecAttach(context.Background(), respIdExecCreate.ID, dockertypes.ExecStartCheck{Tty: true, Detach: false})
 	if err != nil {
 		log.Println(err)
 		return nil, err
 	}
 	return &respId, nil
 }
-
-// func (cm *containerManager) ConnContainer(id string) (net.Conn, *bufio.Reader, error) {
-// 	hijackedResponse, err := cm.cli.ContainerAttach(cm.ctx, id,
-// 		dockertypes.ContainerAttachOptions{
-// 			Stderr: true,
-// 			Stdout: true,
-// 			Stdin:  true,
-// 			Stream: true,
-// 		})
-// 	if err != nil {
-// 		return nil, nil, err
-// 	} else {
-// 		go io.Copy(os.Stdout, hijackedResponse.Reader)
-// 		go io.Copy(os.Stderr, hijackedResponse.Reader)
-// 		return hijackedResponse.Conn, hijackedResponse.Reader, nil
-// 	}
-// }
 
 func (cm *containerManager) CreateNetwork(name string, subnet string, gateway string) (dockertypes.NetworkCreateResponse, error) {
 	var cs []networktypes.IPAMConfig

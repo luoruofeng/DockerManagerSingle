@@ -41,13 +41,6 @@ func main() {
 	go io.Copy(os.Stderr, respId.Reader)
 	go io.Copy(respId.Conn, os.Stdin)
 
-	// for {
-	// scanner := bufio.NewScanner(respId.Reader)
-	// fmt.Println(scanner)
-	// for scanner.Scan() {
-	// 	fmt.Println(scanner.Text())
-	// }
-	// }
 	time.Sleep(time.Second * 100)
 
 }

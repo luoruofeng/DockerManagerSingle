@@ -44,22 +44,6 @@ func TestConnContainer(t *testing.T) {
 		go io.Copy(os.Stdout, waiter.Reader)
 		go io.Copy(os.Stderr, waiter.Reader)
 		go io.Copy(waiter.Conn, os.Stdin)
-		// go io.Copy(os.Stdout, r)
-
-		// 	n, err = c.Write([]byte("touch abc.txt \n"))
-		// 	if err != nil {
-		// 		fmt.Println(err)
-		// 	}
-		// 	fmt.Println(n)
-
-		// 	c.Write([]byte("pwd \n"))
-
-		// 	c.Write([]byte("cd / \n"))
-
-		// 	c.Write([]byte("pwd \n"))
-
-		// 	c.Write([]byte("echo 123"))
-		// }()
 
 		fd := int(os.Stdin.Fd())
 		var oldState *terminal.State

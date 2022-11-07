@@ -1,11 +1,13 @@
 package main
 
 import (
+	"bufio"
 	"context"
 	"flag"
 	"fmt"
 	"io"
 	"log"
+	"os"
 	"time"
 
 	pb "github.com/luoruofeng/dockermanagersingle/pb"
@@ -16,26 +18,52 @@ import (
 
 var (
 	serverAddr  = flag.String("addr", "localhost:8997", "The server address in the format of host:port")
-	containerId = "eee86007800a"
+	containerId = "testconn"
 )
 
 func Operation(client pb.DockerHandleClient) {
-	//i will send cmds
-	datas := []*pb.OperationRequest_Data{
-		{[]byte("pwd \n cd usr\n")},
-		{[]byte("rm test\n")},
-		{[]byte("touch luoruofeng\n")},
-		{[]byte("ls\n")},
-		{[]byte("echo testecho\n")},
-		// {[]byte("Exit\n")},
-	}
-	ctx, cancel := context.WithTimeout(context.Background(), 65*time.Second)
+
+	ctx, cancel := context.WithTimeout(context.Background(), 650*time.Second)
 	defer cancel()
 	stream, err := client.Operation(ctx)
 	if err != nil {
 		log.Fatalf("call operation failed: %v", err)
 	}
 	waitc := make(chan struct{})
+
+	//i will send cmds
+	// datas := []*pb.OperationRequest_Data{
+	// 	{[]byte("pwd \n cd usr\n")},
+	// 	{[]byte("rm test\n")},
+	// 	{[]byte("touch luoruofeng\n")},
+	// 	{[]byte("ls\n")},
+	// 	{[]byte("echo testecho\n")},
+	// 	// {[]byte("Exit\n")},
+	// }
+
+	//throw stdin send cmd
+	bufReader := bufio.NewReader(os.Stdin)
+	go func() {
+		for {
+			bs := make([]byte, 1024)
+			n, err := bufReader.Read(bs)
+			if err != nil {
+				fmt.Println(err)
+				waitc <- struct{}{}
+				return
+			} else {
+				ord := pb.OperationRequest_Data{Data: bs[:n]}
+				orequest := &pb.OperationRequest{
+					Info: &ord,
+				}
+				if err := stream.Send(orequest); err != nil {
+					log.Printf("send cmd failed: stream.Send(%v) failed: %v\n", string(bs[:n]), err)
+					waitc <- struct{}{}
+					return
+				}
+			}
+		}
+	}()
 
 	// get info from grpc server
 	go func() {
@@ -50,7 +78,13 @@ func Operation(client pb.DockerHandleClient) {
 				log.Printf("stream recv data failed: %v\n", err.Error())
 				return
 			}
-			fmt.Printf("Got data: %v\nGot meta: %v\n\n", in.GetData(), in.GetMeta())
+			// fmt.Printf("Got data: %v\nGot meta: %v\n\n", in.GetData(), in.GetMeta())
+
+			if in.GetMeta() != nil {
+				fmt.Printf("meta:%v\n", in.GetMeta())
+			} else {
+				fmt.Print(in.GetData())
+			}
 
 			//quit
 			if in.GetMeta() != nil && in.GetMeta().Code == -1 {
@@ -69,20 +103,19 @@ func Operation(client pb.DockerHandleClient) {
 	}
 
 	//send cmds
-	for _, cmd := range datas {
-		time.Sleep(time.Second * 1)
-		orequest := &pb.OperationRequest{
-			Info: cmd,
-		}
-		if err := stream.Send(orequest); err != nil {
-			log.Fatalf("send cmd failed: stream.Send(%v) failed: %v", cmd, err)
-		}
-	}
-
-	time.Sleep(time.Second * 4)
+	// for _, cmd := range datas {
+	// 	time.Sleep(time.Second * 1)
+	// 	orequest := &pb.OperationRequest{
+	// 		Info: cmd,
+	// 	}
+	// 	if err := stream.Send(orequest); err != nil {
+	// 		log.Fatalf("send cmd failed: stream.Send(%v) failed: %v", cmd, err)
+	// 	}
+	// }
+	// time.Sleep(time.Second * 4)
+	<-waitc
 	fmt.Println("closesend!!!!!!")
 	stream.CloseSend()
-	<-waitc
 	fmt.Println("Done")
 }
 

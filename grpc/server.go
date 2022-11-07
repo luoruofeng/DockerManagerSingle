@@ -1,7 +1,6 @@
 package grpc
 
 import (
-	"bufio"
 	"context"
 	"errors"
 	"fmt"
@@ -12,6 +11,7 @@ import (
 	"strings"
 	"time"
 
+	"github.com/docker/docker/api/types"
 	"github.com/luoruofeng/dockermanagersingle/container"
 
 	pb "github.com/luoruofeng/dockermanagersingle/pb"
@@ -21,6 +21,10 @@ import (
 	"google.golang.org/grpc/codes"
 	"google.golang.org/grpc/status"
 )
+
+const ReadByteLen int = 1 << 8
+
+var sessionDuration time.Duration = 600
 
 // server is used to implement helloworld.GreeterServer.
 type server struct {
@@ -106,7 +110,7 @@ func (s *server) Operation(stream pb.DockerHandle_OperationServer) error {
 	}()
 
 	//get cmd line from grpc caller and send to hijack
-	bctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(60))
+	bctx, cancel := context.WithTimeout(context.Background(), time.Second*time.Duration(sessionDuration))
 	defer cancel()
 
 	cmdMesChan := make(chan *pb.OperationRequest, 10000)
@@ -183,7 +187,7 @@ func (s *server) Operation(stream pb.DockerHandle_OperationServer) error {
 		}
 	})
 
-	containerMesChan := make(chan []byte, 10000)
+	containerMesChan := make(chan string, 10000)
 	containerErrChan := make(chan error, 10000)
 	isContainerChanClosed := false
 
@@ -194,13 +198,14 @@ func (s *server) Operation(stream pb.DockerHandle_OperationServer) error {
 	}()
 
 	//read container data from hijact to containerMesChan.ensure this func quit successfully when parent func quit.
-	go func() {
+	go func(hijack *types.HijackedResponse) {
 		defer func() {
 			log.Println("Exit: Container Chan reader.")
 		}()
-		bufReader := bufio.NewReader(hijack.Reader)
+
 		for {
-			line, _, err := bufReader.ReadLine()
+			bs := make([]byte, ReadByteLen)
+			n, err := hijack.Reader.Read(bs)
 			if err != nil {
 				if isContainerChanClosed {
 					return
@@ -211,10 +216,10 @@ func (s *server) Operation(stream pb.DockerHandle_OperationServer) error {
 				if isContainerChanClosed {
 					return
 				}
-				containerMesChan <- line
+				containerMesChan <- string(bs[:n])
 			}
 		}
-	}()
+	}(hijack)
 
 	//Write containerMesChan's content to grpc caller
 	eg.Go(func() error {
@@ -226,7 +231,6 @@ func (s *server) Operation(stream pb.DockerHandle_OperationServer) error {
 			case <-ctx.Done():
 				return nil
 			case line := <-containerMesChan:
-
 				datareply := createDataDialogueReply()
 				d, ok := datareply.Info.(*pb.DialogueReply_Data)
 				if !ok {
