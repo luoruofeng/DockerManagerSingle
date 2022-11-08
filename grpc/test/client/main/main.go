@@ -6,7 +6,6 @@ import (
 	"flag"
 	"fmt"
 	"io"
-	"log"
 	"os"
 	"time"
 
@@ -27,7 +26,8 @@ func Operation(client pb.DockerHandleClient) {
 	defer cancel()
 	stream, err := client.Operation(ctx)
 	if err != nil {
-		log.Fatalf("call operation failed: %v", err)
+		fmt.Printf("call operation failed: %v\n", err)
+		return
 	}
 	waitc := make(chan struct{})
 
@@ -57,7 +57,7 @@ func Operation(client pb.DockerHandleClient) {
 					Info: &ord,
 				}
 				if err := stream.Send(orequest); err != nil {
-					log.Printf("send cmd failed: stream.Send(%v) failed: %v\n", string(bs[:n]), err)
+					fmt.Printf("send cmd failed: stream.Send(%v) failed: %v\n", string(bs[:n]), err)
 					waitc <- struct{}{}
 					return
 				}
@@ -75,7 +75,7 @@ func Operation(client pb.DockerHandleClient) {
 				return
 			}
 			if err != nil {
-				log.Printf("stream recv data failed: %v\n", err.Error())
+				fmt.Printf("stream recv data failed: %v\n", err.Error())
 				return
 			}
 			// fmt.Printf("Got data: %v\nGot meta: %v\n\n", in.GetData(), in.GetMeta())
@@ -99,7 +99,8 @@ func Operation(client pb.DockerHandleClient) {
 		Info: &pb.OperationRequest_ContainerId{ContainerId: containerId},
 	}
 	if err := stream.Send(cidreq); err != nil {
-		log.Fatalf("client send container id failed: stream.Send(%v) failed: %v\n", containerId, err)
+		fmt.Printf("client send container id failed: stream.Send(%v) failed: %v\n", containerId, err)
+		return
 	}
 
 	//send cmds
@@ -109,7 +110,7 @@ func Operation(client pb.DockerHandleClient) {
 	// 		Info: cmd,
 	// 	}
 	// 	if err := stream.Send(orequest); err != nil {
-	// 		log.Fatalf("send cmd failed: stream.Send(%v) failed: %v", cmd, err)
+	// 		fmt.Fatalf("send cmd failed: stream.Send(%v) failed: %v", cmd, err)
 	// 	}
 	// }
 	// time.Sleep(time.Second * 4)
@@ -120,13 +121,17 @@ func Operation(client pb.DockerHandleClient) {
 }
 
 func ImagePull(client pb.DockerHandleClient) {
+	ctx, _ := context.WithTimeout(context.Background(), time.Second*10)
+
 	in := pb.PullImageWithLogRequest{
 		ImageName:    "redis",
 		ImageVersion: "6.0",
 	}
-	stream, err := client.PullImageWithLog(context.Background(), &in)
+	fmt.Printf("start pull image. tag:%v:%v\n", in.ImageName, in.ImageVersion)
+	stream, err := client.PullImageWithLog(ctx, &in)
 	if err != nil {
-		log.Fatalf("call operation failed: %v", err)
+		fmt.Printf("call operation failed: %v\n", err)
+		return
 	}
 
 	for {
@@ -155,7 +160,8 @@ func main() {
 	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
 	conn, err := grpc.Dial(*serverAddr, opts...)
 	if err != nil {
-		log.Fatalf("fail to dial: %v", err)
+		fmt.Printf("fail to dial: %v", err)
+		return
 	}
 	defer conn.Close()
 	client := pb.NewDockerHandleClient(conn)

@@ -5,6 +5,7 @@ import (
 	"errors"
 	"flag"
 	"fmt"
+	"io"
 	"log"
 	"os"
 	"os/signal"
@@ -21,12 +22,20 @@ import (
 )
 
 func main() {
+
 	ctx := context.Background()
 	ctx, cancel := signal.NotifyContext(ctx, os.Interrupt, syscall.SIGTERM)
 	defer cancel()
 	e, ctx := errgroup.WithContext(ctx)
 
-	filePath, proxyPort, apiPort, grpcPort, apiEnable, grpcEnable := ReadConfigFlag()
+	isDev, filePath, proxyPort, apiPort, grpcPort, apiEnable, grpcEnable := ReadConfigFlag()
+	logFile := setLogger(*isDev, "./log.txt")
+	defer func() {
+		err := logFile.Close()
+		if err != nil {
+			panic(err)
+		}
+	}()
 
 	_, err := ReadConfig(filePath)
 	if err != nil {
@@ -84,7 +93,8 @@ ERR:
 	log.Println("DockerManagerSingle EXIT")
 }
 
-func ReadConfigFlag() (configFile string, proxyPort *int, apiPort *int, grpcPort *int, apiEnable *bool, grpcEnable *bool) {
+func ReadConfigFlag() (idDev *bool, configFile string, proxyPort *int, apiPort *int, grpcPort *int, apiEnable *bool, grpcEnable *bool) {
+	idDev = flag.Bool("dev", false, "log write to file and terminal")
 	apiEnable = flag.Bool("api_enable", true, "API server is availability")
 	grpcEnable = flag.Bool("grpc_enable", true, "GRPC server is availability")
 	configFile = *flag.String("config", "./config.yaml", "The configuration yaml file")
@@ -93,6 +103,25 @@ func ReadConfigFlag() (configFile string, proxyPort *int, apiPort *int, grpcPort
 	apiPort = flag.Int("api_port", 0, "The api server url's port")
 	flag.Parse()
 	return
+}
+
+func setLogger(isDev bool, path string) *os.File {
+	var w io.Writer
+	f, err := os.OpenFile(path, os.O_APPEND|os.O_CREATE, 0755)
+	if isDev {
+		w = io.MultiWriter(os.Stdout, f)
+	}
+	if err != nil {
+		log.Fatal(err)
+	}
+	logger := log.Default()
+	if w == nil {
+		logger.SetOutput(f)
+	} else {
+		logger.SetOutput(w)
+	}
+
+	return f
 }
 
 func ReadConfig(filePath string) (*types.Config, error) {

@@ -18,7 +18,7 @@ func main() {
 	}
 	c.InitContainerManager(context.Background(), cli)
 
-	respId, _ := c.GetCM().BashContainer("2c9b79533585e5b124ba10c49b76adee7df0ac525965bad50b8ad6c9859871b6")
+	respId, _ := c.GetCM().BashContainer("testconn")
 	defer respId.Close()
 
 	go io.Copy(os.Stdout, respId.Reader)

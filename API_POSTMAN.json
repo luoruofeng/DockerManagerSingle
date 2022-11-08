@@ -349,6 +349,26 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "container-log",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/container/log/2c9b79533585",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"container",
+						"log",
+						"2c9b79533585"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
