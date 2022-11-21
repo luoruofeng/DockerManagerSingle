@@ -17,6 +17,8 @@ import (
 
 	pb "github.com/luoruofeng/dockermanagersingle/pb"
 	"golang.org/x/sync/errgroup"
+	"google.golang.org/grpc/health"
+	healthgrpc "google.golang.org/grpc/health/grpc_health_v1"
 
 	"google.golang.org/grpc"
 )
@@ -318,15 +320,16 @@ func Start(ctx context.Context, e *errgroup.Group, port int) error {
 	}
 	var opts []grpc.ServerOption
 	grpcServer := grpc.NewServer(opts...)
+	healthgrpc.RegisterHealthServer(grpcServer, health.NewServer())
 	pb.RegisterDockerHandleServer(grpcServer, &server{ctx: ctx, cm: container.GetCM()})
 
 	e.Go(func() error {
 		log.Println("grpc server is running... port:" + strconv.Itoa(port))
 		if err := grpcServer.Serve(lis); err != nil {
-			log.Printf("grpc server is stopped Ungracefully. %v", err)
+			log.Printf("grpc server is stopped Ungracefully. %v\n", err)
 			return err
 		} else {
-			log.Printf("grpc server is stopped. %v", err)
+			log.Printf("grpc server is stopped. %v\n", err)
 			return nil
 		}
 	})

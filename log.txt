@@ -70,3 +70,147 @@
 2022/11/08 11:51:41 web_api server is stoped. error:http: Server closed
 2022/11/08 11:51:41 grpc server is stopped. <nil>
 2022/11/08 11:51:41 DockerManagerSingle EXIT
+2022/11/09 16:16:31 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/09 16:16:31 api server is running... port:8998 
+2022/11/09 16:16:31 grpc server is running... port:8997
+2022/11/09 16:16:45 grpc_server is shutting down now
+2022/11/09 16:16:45 web_api is shutting down now
+2022/11/09 16:16:45 web_api server is stoped. error:http: Server closed
+2022/11/09 16:16:45 grpc server is stopped. <nil>
+2022/11/09 16:16:45 DockerManagerSingle EXIT
+2022/11/09 16:16:51 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/09 16:16:51 api server is running... port:8998 
+2022/11/09 16:16:51 grpc server is running... port:8997
+2022/11/09 16:17:01 Start: Image pull handle.
+2022/11/09 16:17:08 rpc error: code = Unavailable desc = transport is closing
+2022/11/09 16:17:08 End: Image pull handle.
+2022/11/09 17:01:52 Start: Image pull handle.
+2022/11/09 17:02:02 rpc error: code = Unavailable desc = transport is closing
+2022/11/09 17:02:02 End: Image pull handle.
+2022/11/10 14:23:55 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 14:23:55 api server is running... port:8998 
+2022/11/10 14:23:55 grpc server is running... port:8997
+2022/11/10 14:24:12 web_api is shutting down now
+2022/11/10 14:24:12 grpc_server is shutting down now
+2022/11/10 14:24:12 grpc server is stopped. <nil>
+2022/11/10 14:24:12 web_api server is stoped. error:http: Server closed
+2022/11/10 14:24:12 DockerManagerSingle EXIT
+2022/11/10 14:24:17 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 14:24:17 api server is running... port:8998 
+2022/11/10 14:24:17 grpc server is running... port:8997
+2022/11/10 14:24:28 Start: Image pull handle.
+2022/11/10 14:24:35 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:24:35 End: Image pull handle.
+2022/11/10 14:25:56 Start: Image pull handle.
+2022/11/10 14:26:06 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:26:06 End: Image pull handle.
+2022/11/10 14:26:53 web_api is shutting down now
+2022/11/10 14:26:53 grpc_server is shutting down now
+2022/11/10 14:26:53 web_api server is stoped. error:http: Server closed
+2022/11/10 14:26:53 grpc server is stopped. <nil>
+2022/11/10 14:26:53 DockerManagerSingle EXIT
+2022/11/10 14:26:56 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 14:26:56 api server is running... port:8998 
+2022/11/10 14:26:56 grpc server is running... port:8997
+2022/11/10 14:27:00 Start: Image pull handle.
+2022/11/10 14:27:07 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:27:07 End: Image pull handle.
+2022/11/10 14:35:48 Start: Image pull handle.
+2022/11/10 14:35:58 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:35:58 End: Image pull handle.
+2022/11/10 14:37:16 Start: Image pull handle.
+2022/11/10 14:37:27 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:37:27 End: Image pull handle.
+2022/11/10 14:38:52 Start: Image pull handle.
+2022/11/10 14:39:01 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:39:01 End: Image pull handle.
+2022/11/10 14:42:11 web_api is shutting down now
+2022/11/10 14:42:11 grpc_server is shutting down now
+2022/11/10 14:42:11 grpc server is stopped. <nil>
+2022/11/10 14:42:11 web_api server is stoped. error:http: Server closed
+2022/11/10 14:42:11 DockerManagerSingle EXIT
+2022/11/10 14:42:14 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 14:42:14 api server is running... port:8998 
+2022/11/10 14:42:14 grpc server is running... port:8997
+2022/11/10 14:48:15 Start: Image pull handle.
+2022/11/10 14:48:22 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:48:22 End: Image pull handle.
+2022/11/10 14:49:08 Start: Image pull handle.
+2022/11/10 14:49:16 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:49:16 End: Image pull handle.
+2022/11/10 14:58:03 Start: Image pull handle.
+2022/11/10 14:58:10 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:58:10 End: Image pull handle.
+2022/11/10 15:25:24 web_api is shutting down now
+2022/11/10 15:25:24 grpc_server is shutting down now
+2022/11/10 15:25:24 web_api server is stoped. error:http: Server closed
+2022/11/10 15:25:24 grpc server is stopped. <nil>
+2022/11/10 15:25:24 DockerManagerSingle EXIT
+2022/11/10 15:26:01 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 15:26:01 api server is running... port:8998 
+2022/11/10 15:26:01 grpc server is running... port:8997
+2022/11/10 15:26:07 Start: Image pull handle.
+2022/11/10 15:26:11 rpc error: code = Unknown desc = connection error: desc = "transport is closing"
+2022/11/10 15:26:11 End: Image pull handle.
+2022/11/10 15:26:41 Start: Image pull handle.
+2022/11/10 15:26:51 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 15:26:51 End: Image pull handle.
+2022/11/10 15:27:34 grpc_server is shutting down now
+2022/11/10 15:27:34 web_api is shutting down now
+2022/11/10 15:27:34 grpc server is stopped. <nil>
+2022/11/10 15:27:34 web_api server is stoped. error:http: Server closed
+2022/11/10 15:27:34 DockerManagerSingle EXIT
+2022/11/10 15:31:48 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 15:31:48 api server is running... port:8998 
+2022/11/10 15:31:48 grpc server is running... port:8997
+2022/11/10 15:31:53 grpc_server is shutting down now
+2022/11/10 15:31:53 grpc server is stopped. <nil>
+2022/11/10 15:32:13 web_api is shutting down now
+2022/11/10 15:32:13 web_api server is stoped. error:http: Server closed
+2022/11/10 15:32:13 DockerManagerSingle EXIT
+2022/11/10 15:32:31 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 15:32:31 api server is running... port:8998 
+2022/11/10 15:32:31 grpc server is running... port:8997
+2022/11/10 15:32:36 web_api is shutting down now
+2022/11/10 15:32:36 web_api server is stoped. error:http: Server closed
+2022/11/10 15:32:36 grpc_server is shutting down now
+2022/11/10 15:32:36 grpc server is stopped. <nil>
+2022/11/10 15:32:36 DockerManagerSingle EXIT
+2022/11/10 15:35:14 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 15:35:14 api server is running... port:8998 
+2022/11/10 15:35:14 grpc server is running... port:8997
+2022/11/10 15:37:07 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 15:37:07 api server is running... port:8998 
+2022/11/10 15:37:07 grpc server is running... port:8997
+2022/11/10 15:37:09 grpc_server is shutting down now
+2022/11/10 15:37:09 web_api is shutting down now
+2022/11/10 15:37:09 grpc server is stopped. <nil>
+2022/11/10 15:37:09 web_api server is stoped. error:http: Server closed
+2022/11/10 15:37:09 DockerManagerSingle EXIT
+2022/11/11 14:14:18 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/11 14:14:18 api server is running... port:8998 
+2022/11/11 14:14:18 grpc server is running... port:8997
+2022/11/11 14:14:19 web_api is shutting down now
+2022/11/11 14:14:19 grpc_server is shutting down now
+2022/11/11 14:14:19 grpc server is stopped. <nil>
+2022/11/11 14:14:19 web_api server is stoped. error:http: Server closed
+2022/11/11 14:14:19 DockerManagerSingle EXIT
+2022/11/11 14:14:27 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/11 14:14:27 api server is running... port:8998 
+2022/11/11 14:14:27 grpc server is running... port:8997
+2022/11/11 14:15:16 Start: Operation handle.
+2022/11/11 14:15:16 get container id: testconn 
+2022/11/11 14:15:16 Error response from daemon: Container 312c9d84c385062de35f8f4a020ee40defdfc6166b9392785fc281e3f5cf0bd8 is not running
+2022/11/11 14:15:16 Get container connection.
+2022/11/11 14:15:16 Error response from daemon: Container 312c9d84c385062de35f8f4a020ee40defdfc6166b9392785fc281e3f5cf0bd8 is not running
+2022/11/11 14:15:25 Start: Operation handle.
+2022/11/11 14:15:25 get container id: testconn 
+2022/11/11 14:15:25 Get container connection.
+2022/11/11 14:16:16 grpc_server is shutting down now
+2022/11/11 14:16:16 web_api is shutting down now
+2022/11/11 14:16:16 web_api server is stoped. error:http: Server closed
+2022/11/11 14:16:16 grpc server is stopped. <nil>
+2022/11/11 14:16:16 Exit: Cmd Chan Reader.
+2022/11/11 14:16:16 Exit: CMD Reader
+2022/11/11 14:16:16 Exit: CMD Writer
+2022/11/11 14:16:16 DockerManagerSingle EXIT

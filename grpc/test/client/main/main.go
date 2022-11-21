@@ -6,6 +6,7 @@ import (
 	"flag"
 	"fmt"
 	"io"
+	"log"
 	"os"
 	"time"
 
@@ -13,6 +14,7 @@ import (
 
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials/insecure"
+	"google.golang.org/grpc/health/grpc_health_v1"
 )
 
 var (
@@ -121,8 +123,8 @@ func Operation(client pb.DockerHandleClient) {
 }
 
 func ImagePull(client pb.DockerHandleClient) {
-	ctx, _ := context.WithTimeout(context.Background(), time.Second*10)
-
+	ctx, cancel := context.WithTimeout(context.Background(), time.Second*10)
+	defer cancel()
 	in := pb.PullImageWithLogRequest{
 		ImageName:    "redis",
 		ImageVersion: "6.0",
@@ -154,20 +156,78 @@ func ImagePull(client pb.DockerHandleClient) {
 
 }
 
+//没有使用的一般拦截器
+func logInterceptor(ctx context.Context, method string, req, reply interface{}, cc *grpc.ClientConn, invoker grpc.UnaryInvoker, opts ...grpc.CallOption) error {
+	fmt.Println("开始设置一般拦截器")
+	start := time.Now()
+	err := invoker(ctx, method, req, reply, cc, opts...)
+	end := time.Now()
+	fmt.Printf("RPC: %s, 开始: %s, 结束: %s, 错误: %v", method, start.Format("Basic"), end.Format(time.RFC3339), err)
+	return err
+}
+
+//设置日志流拦截器
+// wrappedStream  wraps around the embedded grpc.ClientStream, and intercepts the RecvMsg and
+// SendMsg method call.
+type wrappedStream struct {
+	grpc.ClientStream
+}
+
+func newWrappedStream(s grpc.ClientStream) grpc.ClientStream {
+	return &wrappedStream{s}
+}
+
+func (w *wrappedStream) RecvMsg(m interface{}) error {
+	fmt.Printf("获取到信息啦：(Type: %T) at %v", m, time.Now().Format(time.RFC3339))
+	return w.ClientStream.RecvMsg(m)
+}
+
+func (w *wrappedStream) SendMsg(m interface{}) error {
+	fmt.Printf("发送出信息啦：(Type: %T) at %v", m, time.Now().Format(time.RFC3339))
+	return w.ClientStream.SendMsg(m)
+}
+
+func streamInterceptor(ctx context.Context, desc *grpc.StreamDesc, cc *grpc.ClientConn, method string, streamer grpc.Streamer, opts ...grpc.CallOption) (grpc.ClientStream, error) {
+	fmt.Println("开始设置流拦截器")
+
+	fmt.Println("检查服务器监控状态")
+	healthClient := grpc_health_v1.NewHealthClient(cc)
+	response, err := healthClient.Check(context.Background(), &grpc_health_v1.HealthCheckRequest{})
+	if err != nil {
+		log.Printf("%v", err)
+	}
+	log.Printf("目前服务器状态：%v", response)
+
+	s, err := streamer(ctx, desc, cc, method, opts...)
+	if err != nil {
+		return nil, err
+	}
+	fmt.Println("结束设置流拦截器")
+	return newWrappedStream(s), nil
+}
+
+//超时时间
+const defaultTestTimeout = 4 * time.Second
+
 func main() {
 	flag.Parse()
 	var opts []grpc.DialOption
 	opts = append(opts, grpc.WithTransportCredentials(insecure.NewCredentials()))
+
+	// 设置interceptors
+	opts = append(opts, grpc.WithChainStreamInterceptor(streamInterceptor))
+
 	conn, err := grpc.Dial(*serverAddr, opts...)
 	if err != nil {
 		fmt.Printf("fail to dial: %v", err)
 		return
 	}
 	defer conn.Close()
+
 	client := pb.NewDockerHandleClient(conn)
 	// op
-	// Operation(client)
+	Operation(client)
 	// pull image
-	ImagePull(client)
+	// ImagePull(client)
 
 }
