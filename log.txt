@@ -978,3 +978,17 @@
 2022/12/06 10:42:21 web_api server is stoped. error:http: Server closed
 2022/12/06 10:42:21 grpc server is stopped. <nil>
 2022/12/06 10:42:21 DockerManagerSingle EXIT
+2022/12/06 10:52:44 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/06 10:52:44 api server is running... port:8998 
+2022/12/06 10:52:44 grpc server is running... port:8997
+2022/12/06 10:52:56 error: websocket: close 1000 (normal)
+2022/12/06 10:52:56 websocket:exit readWs
+2022/12/06 10:52:56 websocket:exit run
+2022/12/06 10:52:56 file has already been closed
+2022/12/06 10:52:56 websocket:exit run inner
+2022/12/06 10:52:56 websocket:exit writeWs
+2022/12/06 10:52:58 web_api is shutting down now
+2022/12/06 10:52:58 grpc_server is shutting down now
+2022/12/06 10:52:58 web_api server is stoped. error:http: Server closed
+2022/12/06 10:52:58 grpc server is stopped. <nil>
+2022/12/06 10:52:58 DockerManagerSingle EXIT
