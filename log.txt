@@ -1,0 +1,980 @@
+2022/11/08 11:10:45 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/08 11:10:45 api server is running... port:8998 
+2022/11/08 11:10:45 grpc server is running... port:8997
+2022/11/08 11:11:20 Start: Image pull handle.
+2022/11/08 11:16:54 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/08 11:16:54 api server is running... port:8998 
+2022/11/08 11:16:54 grpc server is running... port:8997
+2022/11/08 11:17:03 Start: Image pull handle.
+2022/11/08 11:17:42 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/08 11:17:42 api server is running... port:8998 
+2022/11/08 11:17:42 grpc server is running... port:8997
+2022/11/08 11:18:02 Start: Image pull handle.
+2022/11/08 11:21:41 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/08 11:21:41 api server is running... port:8998 
+2022/11/08 11:21:41 grpc server is running... port:8997
+2022/11/08 11:22:28 Start: Image pull handle.
+2022/11/08 11:29:59 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/08 11:29:59 api server is running... port:8998 
+2022/11/08 11:29:59 grpc server is running... port:8997
+2022/11/08 11:30:01 web_api is shutting down now
+2022/11/08 11:30:01 grpc_server is shutting down now
+2022/11/08 11:30:01 grpc server is stopped. <nil>
+2022/11/08 11:30:01 web_api server is stoped. error:http: Server closed
+2022/11/08 11:30:01 DockerManagerSingle EXIT
+2022/11/08 11:30:45 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/08 11:30:45 api server is running... port:8998 
+2022/11/08 11:30:45 grpc server is running... port:8997
+2022/11/08 11:30:57 Start: Operation handle.
+2022/11/08 11:30:57 get container id: testconn 
+2022/11/08 11:30:57 Get container connection.
+2022/11/08 11:31:12 Exit: Container Chan reader.
+2022/11/08 11:31:12 Got container EOF.
+2022/11/08 11:31:12 Exit: CMD Writer
+2022/11/08 11:31:12 Exit: CMD Reader
+2022/11/08 11:31:12 Exit: operation handle.
+2022/11/08 11:31:12 Close container connection.
+2022/11/08 11:31:12 Exit: Cmd Chan Reader.
+2022/11/08 11:32:36 Start: Image pull handle.
+2022/11/08 11:32:47 rpc error: code = Unavailable desc = transport is closing
+2022/11/08 11:32:47 End: Image pull handle.
+2022/11/08 11:35:13 web_api is shutting down now
+2022/11/08 11:35:13 grpc_server is shutting down now
+2022/11/08 11:35:13 grpc server is stopped. <nil>
+2022/11/08 11:35:13 web_api server is stoped. error:http: Server closed
+2022/11/08 11:35:13 DockerManagerSingle EXIT
+2022/11/08 11:35:17 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/08 11:35:17 api server is running... port:8998 
+2022/11/08 11:35:17 grpc server is running... port:8997
+2022/11/08 11:35:46 Start: Image pull handle.
+2022/11/08 11:35:57 rpc error: code = Unavailable desc = transport is closing
+2022/11/08 11:35:57 End: Image pull handle.
+2022/11/08 11:39:33 web_api is shutting down now
+2022/11/08 11:39:33 grpc_server is shutting down now
+2022/11/08 11:39:33 grpc server is stopped. <nil>
+2022/11/08 11:39:33 web_api server is stoped. error:http: Server closed
+2022/11/08 11:39:33 DockerManagerSingle EXIT
+2022/11/08 11:51:07 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/08 11:51:07 api server is running... port:8998 
+2022/11/08 11:51:07 grpc server is running... port:8997
+2022/11/08 11:51:30 grpc_server is shutting down now
+2022/11/08 11:51:30 web_api is shutting down now
+2022/11/08 11:51:30 grpc server is stopped. <nil>
+2022/11/08 11:51:30 web_api server is stoped. error:http: Server closed
+2022/11/08 11:51:30 DockerManagerSingle EXIT
+2022/11/08 11:51:40 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/08 11:51:40 api server is running... port:8998 
+2022/11/08 11:51:40 grpc server is running... port:8997
+2022/11/08 11:51:41 web_api is shutting down now
+2022/11/08 11:51:41 grpc_server is shutting down now
+2022/11/08 11:51:41 web_api server is stoped. error:http: Server closed
+2022/11/08 11:51:41 grpc server is stopped. <nil>
+2022/11/08 11:51:41 DockerManagerSingle EXIT
+2022/11/09 16:16:31 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/09 16:16:31 api server is running... port:8998 
+2022/11/09 16:16:31 grpc server is running... port:8997
+2022/11/09 16:16:45 grpc_server is shutting down now
+2022/11/09 16:16:45 web_api is shutting down now
+2022/11/09 16:16:45 web_api server is stoped. error:http: Server closed
+2022/11/09 16:16:45 grpc server is stopped. <nil>
+2022/11/09 16:16:45 DockerManagerSingle EXIT
+2022/11/09 16:16:51 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/09 16:16:51 api server is running... port:8998 
+2022/11/09 16:16:51 grpc server is running... port:8997
+2022/11/09 16:17:01 Start: Image pull handle.
+2022/11/09 16:17:08 rpc error: code = Unavailable desc = transport is closing
+2022/11/09 16:17:08 End: Image pull handle.
+2022/11/09 17:01:52 Start: Image pull handle.
+2022/11/09 17:02:02 rpc error: code = Unavailable desc = transport is closing
+2022/11/09 17:02:02 End: Image pull handle.
+2022/11/10 14:23:55 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 14:23:55 api server is running... port:8998 
+2022/11/10 14:23:55 grpc server is running... port:8997
+2022/11/10 14:24:12 web_api is shutting down now
+2022/11/10 14:24:12 grpc_server is shutting down now
+2022/11/10 14:24:12 grpc server is stopped. <nil>
+2022/11/10 14:24:12 web_api server is stoped. error:http: Server closed
+2022/11/10 14:24:12 DockerManagerSingle EXIT
+2022/11/10 14:24:17 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 14:24:17 api server is running... port:8998 
+2022/11/10 14:24:17 grpc server is running... port:8997
+2022/11/10 14:24:28 Start: Image pull handle.
+2022/11/10 14:24:35 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:24:35 End: Image pull handle.
+2022/11/10 14:25:56 Start: Image pull handle.
+2022/11/10 14:26:06 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:26:06 End: Image pull handle.
+2022/11/10 14:26:53 web_api is shutting down now
+2022/11/10 14:26:53 grpc_server is shutting down now
+2022/11/10 14:26:53 web_api server is stoped. error:http: Server closed
+2022/11/10 14:26:53 grpc server is stopped. <nil>
+2022/11/10 14:26:53 DockerManagerSingle EXIT
+2022/11/10 14:26:56 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 14:26:56 api server is running... port:8998 
+2022/11/10 14:26:56 grpc server is running... port:8997
+2022/11/10 14:27:00 Start: Image pull handle.
+2022/11/10 14:27:07 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:27:07 End: Image pull handle.
+2022/11/10 14:35:48 Start: Image pull handle.
+2022/11/10 14:35:58 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:35:58 End: Image pull handle.
+2022/11/10 14:37:16 Start: Image pull handle.
+2022/11/10 14:37:27 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:37:27 End: Image pull handle.
+2022/11/10 14:38:52 Start: Image pull handle.
+2022/11/10 14:39:01 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:39:01 End: Image pull handle.
+2022/11/10 14:42:11 web_api is shutting down now
+2022/11/10 14:42:11 grpc_server is shutting down now
+2022/11/10 14:42:11 grpc server is stopped. <nil>
+2022/11/10 14:42:11 web_api server is stoped. error:http: Server closed
+2022/11/10 14:42:11 DockerManagerSingle EXIT
+2022/11/10 14:42:14 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 14:42:14 api server is running... port:8998 
+2022/11/10 14:42:14 grpc server is running... port:8997
+2022/11/10 14:48:15 Start: Image pull handle.
+2022/11/10 14:48:22 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:48:22 End: Image pull handle.
+2022/11/10 14:49:08 Start: Image pull handle.
+2022/11/10 14:49:16 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:49:16 End: Image pull handle.
+2022/11/10 14:58:03 Start: Image pull handle.
+2022/11/10 14:58:10 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 14:58:10 End: Image pull handle.
+2022/11/10 15:25:24 web_api is shutting down now
+2022/11/10 15:25:24 grpc_server is shutting down now
+2022/11/10 15:25:24 web_api server is stoped. error:http: Server closed
+2022/11/10 15:25:24 grpc server is stopped. <nil>
+2022/11/10 15:25:24 DockerManagerSingle EXIT
+2022/11/10 15:26:01 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 15:26:01 api server is running... port:8998 
+2022/11/10 15:26:01 grpc server is running... port:8997
+2022/11/10 15:26:07 Start: Image pull handle.
+2022/11/10 15:26:11 rpc error: code = Unknown desc = connection error: desc = "transport is closing"
+2022/11/10 15:26:11 End: Image pull handle.
+2022/11/10 15:26:41 Start: Image pull handle.
+2022/11/10 15:26:51 rpc error: code = Unavailable desc = transport is closing
+2022/11/10 15:26:51 End: Image pull handle.
+2022/11/10 15:27:34 grpc_server is shutting down now
+2022/11/10 15:27:34 web_api is shutting down now
+2022/11/10 15:27:34 grpc server is stopped. <nil>
+2022/11/10 15:27:34 web_api server is stoped. error:http: Server closed
+2022/11/10 15:27:34 DockerManagerSingle EXIT
+2022/11/10 15:31:48 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 15:31:48 api server is running... port:8998 
+2022/11/10 15:31:48 grpc server is running... port:8997
+2022/11/10 15:31:53 grpc_server is shutting down now
+2022/11/10 15:31:53 grpc server is stopped. <nil>
+2022/11/10 15:32:13 web_api is shutting down now
+2022/11/10 15:32:13 web_api server is stoped. error:http: Server closed
+2022/11/10 15:32:13 DockerManagerSingle EXIT
+2022/11/10 15:32:31 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 15:32:31 api server is running... port:8998 
+2022/11/10 15:32:31 grpc server is running... port:8997
+2022/11/10 15:32:36 web_api is shutting down now
+2022/11/10 15:32:36 web_api server is stoped. error:http: Server closed
+2022/11/10 15:32:36 grpc_server is shutting down now
+2022/11/10 15:32:36 grpc server is stopped. <nil>
+2022/11/10 15:32:36 DockerManagerSingle EXIT
+2022/11/10 15:35:14 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 15:35:14 api server is running... port:8998 
+2022/11/10 15:35:14 grpc server is running... port:8997
+2022/11/10 15:37:07 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/10 15:37:07 api server is running... port:8998 
+2022/11/10 15:37:07 grpc server is running... port:8997
+2022/11/10 15:37:09 grpc_server is shutting down now
+2022/11/10 15:37:09 web_api is shutting down now
+2022/11/10 15:37:09 grpc server is stopped. <nil>
+2022/11/10 15:37:09 web_api server is stoped. error:http: Server closed
+2022/11/10 15:37:09 DockerManagerSingle EXIT
+2022/11/11 14:14:18 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/11 14:14:18 api server is running... port:8998 
+2022/11/11 14:14:18 grpc server is running... port:8997
+2022/11/11 14:14:19 web_api is shutting down now
+2022/11/11 14:14:19 grpc_server is shutting down now
+2022/11/11 14:14:19 grpc server is stopped. <nil>
+2022/11/11 14:14:19 web_api server is stoped. error:http: Server closed
+2022/11/11 14:14:19 DockerManagerSingle EXIT
+2022/11/11 14:14:27 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/11/11 14:14:27 api server is running... port:8998 
+2022/11/11 14:14:27 grpc server is running... port:8997
+2022/11/11 14:15:16 Start: Operation handle.
+2022/11/11 14:15:16 get container id: testconn 
+2022/11/11 14:15:16 Error response from daemon: Container 312c9d84c385062de35f8f4a020ee40defdfc6166b9392785fc281e3f5cf0bd8 is not running
+2022/11/11 14:15:16 Get container connection.
+2022/11/11 14:15:16 Error response from daemon: Container 312c9d84c385062de35f8f4a020ee40defdfc6166b9392785fc281e3f5cf0bd8 is not running
+2022/11/11 14:15:25 Start: Operation handle.
+2022/11/11 14:15:25 get container id: testconn 
+2022/11/11 14:15:25 Get container connection.
+2022/11/11 14:16:16 grpc_server is shutting down now
+2022/11/11 14:16:16 web_api is shutting down now
+2022/11/11 14:16:16 web_api server is stoped. error:http: Server closed
+2022/11/11 14:16:16 grpc server is stopped. <nil>
+2022/11/11 14:16:16 Exit: Cmd Chan Reader.
+2022/11/11 14:16:16 Exit: CMD Reader
+2022/11/11 14:16:16 Exit: CMD Writer
+2022/11/11 14:16:16 DockerManagerSingle EXIT
+2022/12/01 16:20:40 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/01 16:20:40 api server is running... port:8998 
+2022/12/01 16:20:40 grpc server is running... port:8997
+2022/12/01 16:46:21 web_api is shutting down now
+2022/12/01 16:46:21 grpc_server is shutting down now
+2022/12/01 16:46:21 web_api server is stoped. error:http: Server closed
+2022/12/01 16:46:21 grpc server is stopped. <nil>
+2022/12/01 16:46:21 DockerManagerSingle EXIT
+2022/12/02 10:17:04 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/02 10:17:04 api server is running... port:8998 
+2022/12/02 10:17:04 grpc server is running... port:8997
+2022/12/02 10:34:27 error: websocket: close 1000 (normal)
+2022/12/02 10:34:27 file has already been closed
+2022/12/02 10:37:03 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/02 10:37:03 api server is running... port:8998 
+2022/12/02 10:37:03 grpc server is running... port:8997
+2022/12/02 10:38:33 error: websocket: close 1000 (normal)
+2022/12/02 10:38:33 file has already been closed
+2022/12/02 10:39:56 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/02 10:39:56 api server is running... port:8998 
+2022/12/02 10:39:56 grpc server is running... port:8997
+2022/12/02 10:40:19 EOF
+2022/12/02 10:40:19 error: websocket: close 1005 (no status)
+2022/12/02 10:42:16 error: websocket: close 1000 (normal)
+2022/12/02 10:42:16 file has already been closed
+2022/12/02 10:43:55 error: websocket: close 1000 (normal)
+2022/12/02 10:43:55 file has already been closed
+2022/12/02 10:52:42 web_api is shutting down now
+2022/12/02 10:52:42 grpc_server is shutting down now
+2022/12/02 10:52:42 web_api server is stoped. error:http: Server closed
+2022/12/02 10:52:42 grpc server is stopped. <nil>
+2022/12/02 10:52:42 DockerManagerSingle EXIT
+2022/12/02 13:44:18 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/02 13:44:19 api server is running... port:8998 
+2022/12/02 13:44:19 grpc server is running... port:8997
+2022/12/05 11:29:27 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 11:29:27 api server is running... port:8998 
+2022/12/05 11:29:27 grpc server is running... port:8997
+2022/12/05 13:56:48 error: websocket: close 1000 (normal)
+2022/12/05 13:56:48 websocket:exit readWs
+2022/12/05 13:56:48 file has already been closed
+2022/12/05 13:56:48 websocket:exit run inner
+2022/12/05 13:56:48 websocket:exit run
+2022/12/05 13:56:48 websocket:exit writeWs
+2022/12/05 13:57:04 Error response from daemon: Container 2094f33a8e59962bcdf7a74a43304c1d9b5f2bef06b5cf45630d660c31013cdb is not running
+2022/12/05 13:57:04 Error response from daemon: Container 2094f33a8e59962bcdf7a74a43304c1d9b5f2bef06b5cf45630d660c31013cdb is not running
+2022/12/05 13:57:04 websocket:exit run
+2022/12/05 13:58:13 error: websocket: close 1000 (normal)
+2022/12/05 13:58:13 websocket:exit readWs
+2022/12/05 13:58:13 Error response from daemon: Container 2094f33a8e59962bcdf7a74a43304c1d9b5f2bef06b5cf45630d660c31013cdb is not running
+2022/12/05 13:58:13 Error response from daemon: Container 2094f33a8e59962bcdf7a74a43304c1d9b5f2bef06b5cf45630d660c31013cdb is not running
+2022/12/05 13:58:13 websocket:exit run
+2022/12/05 13:58:37 error: websocket: close 1000 (normal)
+2022/12/05 13:58:37 websocket:exit readWs
+2022/12/05 13:58:44 Error response from daemon: Container 2094f33a8e59962bcdf7a74a43304c1d9b5f2bef06b5cf45630d660c31013cdb is not running
+2022/12/05 13:58:44 Error response from daemon: Container 2094f33a8e59962bcdf7a74a43304c1d9b5f2bef06b5cf45630d660c31013cdb is not running
+2022/12/05 13:58:44 websocket:exit run
+2022/12/05 13:58:52 websocket:exit writeWs
+2022/12/05 13:59:00 error: websocket: close 1000 (normal)
+2022/12/05 13:59:00 websocket:exit readWs
+2022/12/05 13:59:01 web_api is shutting down now
+2022/12/05 13:59:01 grpc_server is shutting down now
+2022/12/05 13:59:01 web_api server is stoped. error:http: Server closed
+2022/12/05 13:59:01 grpc server is stopped. <nil>
+2022/12/05 13:59:01 DockerManagerSingle EXIT
+2022/12/05 13:59:08 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 13:59:08 api server is running... port:8998 
+2022/12/05 13:59:08 grpc server is running... port:8997
+2022/12/05 13:59:10 Error response from daemon: Container 2094f33a8e59962bcdf7a74a43304c1d9b5f2bef06b5cf45630d660c31013cdb is not running
+2022/12/05 13:59:10 Error response from daemon: Container 2094f33a8e59962bcdf7a74a43304c1d9b5f2bef06b5cf45630d660c31013cdb is not running
+2022/12/05 13:59:10 websocket:exit run
+2022/12/05 14:00:55 error: websocket: close 1000 (normal)
+2022/12/05 14:00:55 websocket:exit readWs
+2022/12/05 14:00:58 websocket:exit writeWs
+2022/12/05 14:04:45 error: websocket: close 1000 (normal)
+2022/12/05 14:04:45 websocket:exit readWs
+2022/12/05 14:04:45 file has already been closed
+2022/12/05 14:04:45 websocket:exit run inner
+2022/12/05 14:04:45 websocket:exit run
+2022/12/05 14:04:45 websocket:exit writeWs
+2022/12/05 14:05:22 error: websocket: close 1000 (normal)
+2022/12/05 14:05:22 websocket:exit readWs
+2022/12/05 14:05:22 file has already been closed
+2022/12/05 14:05:22 websocket:exit run inner
+2022/12/05 14:05:22 websocket:exit run
+2022/12/05 14:05:22 websocket:exit writeWs
+2022/12/05 14:09:04 grpc_server is shutting down now
+2022/12/05 14:09:04 web_api is shutting down now
+2022/12/05 14:09:04 web_api server is stoped. error:http: Server closed
+2022/12/05 14:09:04 grpc server is stopped. <nil>
+2022/12/05 14:09:04 DockerManagerSingle EXIT
+2022/12/05 14:09:10 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 14:09:10 api server is running... port:8998 
+2022/12/05 14:09:10 grpc server is running... port:8997
+2022/12/05 14:10:32 web_api is shutting down now
+2022/12/05 14:10:32 grpc_server is shutting down now
+2022/12/05 14:10:32 web_api server is stoped. error:http: Server closed
+2022/12/05 14:10:32 grpc server is stopped. <nil>
+2022/12/05 14:10:32 DockerManagerSingle EXIT
+2022/12/05 14:10:39 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 14:10:39 api server is running... port:8998 
+2022/12/05 14:10:39 grpc server is running... port:8997
+2022/12/05 14:12:58 web_api is shutting down now
+2022/12/05 14:12:58 grpc_server is shutting down now
+2022/12/05 14:12:58 web_api server is stoped. error:http: Server closed
+2022/12/05 14:12:58 grpc server is stopped. <nil>
+2022/12/05 14:12:58 DockerManagerSingle EXIT
+2022/12/05 14:13:03 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 14:13:03 api server is running... port:8998 
+2022/12/05 14:13:03 grpc server is running... port:8997
+2022/12/05 14:13:47 web_api is shutting down now
+2022/12/05 14:13:47 grpc_server is shutting down now
+2022/12/05 14:13:47 web_api server is stoped. error:http: Server closed
+2022/12/05 14:13:47 grpc server is stopped. <nil>
+2022/12/05 14:13:47 DockerManagerSingle EXIT
+2022/12/05 14:13:55 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 14:13:55 api server is running... port:8998 
+2022/12/05 14:13:55 grpc server is running... port:8997
+2022/12/05 14:17:10 error: websocket: close 1000 (normal)
+2022/12/05 14:17:10 websocket:exit readWs
+2022/12/05 14:17:10 file has already been closed
+2022/12/05 14:17:10 websocket:exit run inner
+2022/12/05 14:17:10 websocket:exit run
+2022/12/05 14:17:10 websocket:exit writeWs
+2022/12/05 14:18:41 web_api is shutting down now
+2022/12/05 14:18:41 grpc_server is shutting down now
+2022/12/05 14:18:41 web_api server is stoped. error:http: Server closed
+2022/12/05 14:18:41 grpc server is stopped. <nil>
+2022/12/05 14:18:41 DockerManagerSingle EXIT
+2022/12/05 14:18:50 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 14:18:50 api server is running... port:8998 
+2022/12/05 14:18:50 grpc server is running... port:8997
+2022/12/05 14:20:17 web_api is shutting down now
+2022/12/05 14:20:17 grpc_server is shutting down now
+2022/12/05 14:20:17 web_api server is stoped. error:http: Server closed
+2022/12/05 14:20:17 grpc server is stopped. <nil>
+2022/12/05 14:20:17 DockerManagerSingle EXIT
+2022/12/05 14:20:23 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 14:20:23 api server is running... port:8998 
+2022/12/05 14:20:23 grpc server is running... port:8997
+2022/12/05 14:21:52 web_api is shutting down now
+2022/12/05 14:21:52 grpc_server is shutting down now
+2022/12/05 14:21:52 web_api server is stoped. error:http: Server closed
+2022/12/05 14:21:52 grpc server is stopped. <nil>
+2022/12/05 14:21:52 DockerManagerSingle EXIT
+2022/12/05 14:23:56 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 14:23:56 api server is running... port:8998 
+2022/12/05 14:23:56 grpc server is running... port:8997
+2022/12/05 14:26:15 grpc_server is shutting down now
+2022/12/05 14:26:15 web_api is shutting down now
+2022/12/05 14:26:15 grpc server is stopped. <nil>
+2022/12/05 14:26:15 web_api server is stoped. error:http: Server closed
+2022/12/05 14:26:15 DockerManagerSingle EXIT
+2022/12/05 14:27:04 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 14:27:04 api server is running... port:8998 
+2022/12/05 14:27:04 grpc server is running... port:8997
+2022/12/05 15:16:38 websocket:exit readWs
+2022/12/05 15:16:38 file has already been closed
+2022/12/05 15:16:38 websocket:exit run inner
+2022/12/05 15:16:38 websocket:exit run
+2022/12/05 15:16:38 websocket:exit writeWs
+2022/12/05 15:22:31 web_api is shutting down now
+2022/12/05 15:22:31 grpc_server is shutting down now
+2022/12/05 15:22:31 web_api server is stoped. error:http: Server closed
+2022/12/05 15:22:31 grpc server is stopped. <nil>
+2022/12/05 15:22:31 DockerManagerSingle EXIT
+2022/12/05 15:22:35 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 15:22:35 api server is running... port:8998 
+2022/12/05 15:22:35 grpc server is running... port:8997
+2022/12/05 15:24:15 web_api is shutting down now
+2022/12/05 15:24:15 grpc_server is shutting down now
+2022/12/05 15:24:15 web_api server is stoped. error:http: Server closed
+2022/12/05 15:24:15 grpc server is stopped. <nil>
+2022/12/05 15:24:15 DockerManagerSingle EXIT
+2022/12/05 15:24:19 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 15:24:19 api server is running... port:8998 
+2022/12/05 15:24:19 grpc server is running... port:8997
+2022/12/05 15:24:21 error: websocket: close 1000 (normal)
+2022/12/05 15:24:21 websocket:exit readWs
+2022/12/05 15:24:21 file has already been closed
+2022/12/05 15:24:21 websocket:exit run inner
+2022/12/05 15:24:21 websocket:exit run
+2022/12/05 15:24:21 websocket:exit writeWs
+2022/12/05 15:25:28 Start: Operation handle.
+2022/12/05 15:25:28 get container id: testconn 
+2022/12/05 15:25:28 Error response from daemon: No such container: testconn
+2022/12/05 15:25:28 Get container connection.
+2022/12/05 15:25:28 Error response from daemon: No such container: testconn
+2022/12/05 15:25:45 Start: Operation handle.
+2022/12/05 15:25:45 get container id: testreids 
+2022/12/05 15:25:45 Error response from daemon: No such container: testreids
+2022/12/05 15:25:45 Get container connection.
+2022/12/05 15:25:45 Error response from daemon: No such container: testreids
+2022/12/05 15:26:26 Start: Operation handle.
+2022/12/05 15:26:26 get container id: testreids 
+2022/12/05 15:26:26 Error response from daemon: No such container: testreids
+2022/12/05 15:26:26 Get container connection.
+2022/12/05 15:26:26 Error response from daemon: No such container: testreids
+2022/12/05 15:27:32 error: websocket: close 1000 (normal)
+2022/12/05 15:27:32 websocket:exit readWs
+2022/12/05 15:27:32 file has already been closed
+2022/12/05 15:27:32 websocket:exit run inner
+2022/12/05 15:27:32 websocket:exit writeWs
+2022/12/05 15:27:32 websocket:exit run
+2022/12/05 15:27:45 Error response from daemon: No such container: mysql
+2022/12/05 15:27:45 Error response from daemon: No such container: mysql
+2022/12/05 15:27:45 websocket:exit run
+2022/12/05 15:28:08 error: websocket: close 1000 (normal)
+2022/12/05 15:28:08 websocket:exit readWs
+2022/12/05 15:28:39 websocket:exit writeWs
+2022/12/05 15:30:40 Start: Operation handle.
+2022/12/05 15:30:40 get container id: testreids 
+2022/12/05 15:30:40 Error response from daemon: No such container: testreids
+2022/12/05 15:30:40 Get container connection.
+2022/12/05 15:30:40 Error response from daemon: No such container: testreids
+2022/12/05 15:30:46 error: websocket: close 1000 (normal)
+2022/12/05 15:30:46 websocket:exit readWs
+2022/12/05 15:30:46 file has already been closed
+2022/12/05 15:30:46 websocket:exit run inner
+2022/12/05 15:30:46 websocket:exit run
+2022/12/05 15:30:46 websocket:exit writeWs
+2022/12/05 15:40:25 Start: Operation handle.
+2022/12/05 15:40:25 get container id: testreids 
+2022/12/05 15:40:25 Error response from daemon: No such container: testreids
+2022/12/05 15:40:25 Get container connection.
+2022/12/05 15:40:25 Error response from daemon: No such container: testreids
+2022/12/05 15:41:02 Start: Operation handle.
+2022/12/05 15:41:02 get container id: testreids 
+2022/12/05 15:41:02 Error response from daemon: No such container: testreids
+2022/12/05 15:41:02 Get container connection.
+2022/12/05 15:41:02 Error response from daemon: No such container: testreids
+2022/12/05 15:41:05 error: websocket: close 1000 (normal)
+2022/12/05 15:41:05 websocket:exit readWs
+2022/12/05 15:41:05 file has already been closed
+2022/12/05 15:41:05 websocket:exit run inner
+2022/12/05 15:41:05 websocket:exit run
+2022/12/05 15:41:05 websocket:exit writeWs
+2022/12/05 15:42:46 error: websocket: close 1000 (normal)
+2022/12/05 15:42:46 websocket:exit readWs
+2022/12/05 15:42:46 file has already been closed
+2022/12/05 15:42:46 websocket:exit run inner
+2022/12/05 15:42:46 websocket:exit writeWs
+2022/12/05 15:42:46 websocket:exit run
+2022/12/05 15:43:31 Start: Operation handle.
+2022/12/05 15:43:31 get container id: testreids 
+2022/12/05 15:43:31 Error response from daemon: No such container: testreids
+2022/12/05 15:43:31 Get container connection.
+2022/12/05 15:43:31 Error response from daemon: No such container: testreids
+2022/12/05 15:43:33 error: websocket: close 1000 (normal)
+2022/12/05 15:43:33 websocket:exit readWs
+2022/12/05 15:43:33 file has already been closed
+2022/12/05 15:43:33 websocket:exit run inner
+2022/12/05 15:43:33 websocket:exit run
+2022/12/05 15:43:33 websocket:exit writeWs
+2022/12/05 15:44:17 error: websocket: close 1000 (normal)
+2022/12/05 15:44:17 websocket:exit readWs
+2022/12/05 15:44:17 file has already been closed
+2022/12/05 15:44:17 websocket:exit run inner
+2022/12/05 15:44:17 websocket:exit run
+2022/12/05 15:44:17 websocket:exit writeWs
+2022/12/05 15:44:37 error: websocket: close 1000 (normal)
+2022/12/05 15:44:37 websocket:exit readWs
+2022/12/05 15:44:37 file has already been closed
+2022/12/05 15:44:37 websocket:exit run inner
+2022/12/05 15:44:37 websocket:exit run
+2022/12/05 15:44:37 websocket:exit writeWs
+2022/12/05 15:44:39 error: websocket: close 1000 (normal)
+2022/12/05 15:44:39 websocket:exit readWs
+2022/12/05 15:44:39 file has already been closed
+2022/12/05 15:44:39 websocket:exit run inner
+2022/12/05 15:44:39 websocket:exit run
+2022/12/05 15:44:39 websocket:exit writeWs
+2022/12/05 15:44:48 error: websocket: close 1000 (normal)
+2022/12/05 15:44:48 websocket:exit readWs
+2022/12/05 15:44:48 file has already been closed
+2022/12/05 15:44:48 websocket:exit run inner
+2022/12/05 15:44:48 websocket:exit run
+2022/12/05 15:44:48 websocket:exit writeWs
+2022/12/05 15:44:53 error: websocket: close 1000 (normal)
+2022/12/05 15:44:53 websocket:exit readWs
+2022/12/05 15:44:53 file has already been closed
+2022/12/05 15:44:53 websocket:exit run inner
+2022/12/05 15:44:53 websocket:exit run
+2022/12/05 15:44:53 websocket:exit writeWs
+2022/12/05 15:44:56 error: websocket: close 1000 (normal)
+2022/12/05 15:44:56 websocket:exit readWs
+2022/12/05 15:44:56 file has already been closed
+2022/12/05 15:44:56 websocket:exit run inner
+2022/12/05 15:44:56 websocket:exit run
+2022/12/05 15:44:56 websocket:exit writeWs
+2022/12/05 15:45:26 error: websocket: close 1000 (normal)
+2022/12/05 15:45:26 websocket:exit readWs
+2022/12/05 15:45:26 file has already been closed
+2022/12/05 15:45:26 websocket:exit run inner
+2022/12/05 15:45:26 websocket:exit run
+2022/12/05 15:45:26 websocket:exit writeWs
+2022/12/05 15:45:27 Start: Operation handle.
+2022/12/05 15:45:27 get container id: testreids 
+2022/12/05 15:45:27 Error response from daemon: No such container: testreids
+2022/12/05 15:45:27 Get container connection.
+2022/12/05 15:45:27 Error response from daemon: No such container: testreids
+2022/12/05 15:45:40 error: websocket: close 1000 (normal)
+2022/12/05 15:45:40 websocket:exit readWs
+2022/12/05 15:45:40 file has already been closed
+2022/12/05 15:45:40 websocket:exit run inner
+2022/12/05 15:45:40 websocket:exit run
+2022/12/05 15:45:40 websocket:exit writeWs
+2022/12/05 15:45:55 Start: Operation handle.
+2022/12/05 15:45:55 get container id: testreids 
+2022/12/05 15:45:55 Error response from daemon: No such container: testreids
+2022/12/05 15:45:55 Get container connection.
+2022/12/05 15:45:55 Error response from daemon: No such container: testreids
+2022/12/05 15:46:07 error: websocket: close 1000 (normal)
+2022/12/05 15:46:07 websocket:exit readWs
+2022/12/05 15:46:07 file has already been closed
+2022/12/05 15:46:07 websocket:exit run inner
+2022/12/05 15:46:07 websocket:exit run
+2022/12/05 15:46:07 websocket:exit writeWs
+2022/12/05 15:46:08 Start: Operation handle.
+2022/12/05 15:46:08 get container id: testreids 
+2022/12/05 15:46:08 Error response from daemon: No such container: testreids
+2022/12/05 15:46:08 Get container connection.
+2022/12/05 15:46:08 Error response from daemon: No such container: testreids
+2022/12/05 15:46:19 web_api is shutting down now
+2022/12/05 15:46:19 grpc_server is shutting down now
+2022/12/05 15:46:19 web_api server is stoped. error:http: Server closed
+2022/12/05 15:46:19 grpc server is stopped. <nil>
+2022/12/05 15:46:19 DockerManagerSingle EXIT
+2022/12/05 15:46:23 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 15:46:23 api server is running... port:8998 
+2022/12/05 15:46:23 grpc server is running... port:8997
+2022/12/05 15:46:26 web_api is shutting down now
+2022/12/05 15:46:26 grpc_server is shutting down now
+2022/12/05 15:46:26 web_api server is stoped. error:http: Server closed
+2022/12/05 15:46:26 grpc server is stopped. <nil>
+2022/12/05 15:46:26 DockerManagerSingle EXIT
+2022/12/05 15:46:30 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 15:46:30 api server is running... port:8998 
+2022/12/05 15:46:30 grpc server is running... port:8997
+2022/12/05 15:46:32 websocket:exit run inner
+2022/12/05 15:47:07 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 15:47:07 api server is running... port:8998 
+2022/12/05 15:47:07 grpc server is running... port:8997
+2022/12/05 15:47:09 websocket:exit run inner
+2022/12/05 15:47:16 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 15:47:16 api server is running... port:8998 
+2022/12/05 15:47:16 grpc server is running... port:8997
+2022/12/05 15:47:20 websocket:exit run inner
+2022/12/05 15:50:38 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 15:50:38 api server is running... port:8998 
+2022/12/05 15:50:38 grpc server is running... port:8997
+2022/12/05 15:51:07 web_api is shutting down now
+2022/12/05 15:51:07 grpc_server is shutting down now
+2022/12/05 15:51:07 grpc server is stopped. <nil>
+2022/12/05 15:51:07 web_api server is stoped. error:http: Server closed
+2022/12/05 15:51:07 DockerManagerSingle EXIT
+2022/12/05 15:51:12 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 15:51:12 api server is running... port:8998 
+2022/12/05 15:51:12 grpc server is running... port:8997
+2022/12/05 15:52:17 error: websocket: close 1000 (normal)
+2022/12/05 15:52:17 websocket:exit readWs
+2022/12/05 15:52:17 file has already been closed
+2022/12/05 15:52:17 websocket:exit run inner
+2022/12/05 15:52:17 websocket:exit run
+2022/12/05 15:52:17 websocket:exit writeWs
+2022/12/05 15:52:22 error: websocket: close 1000 (normal)
+2022/12/05 15:52:22 websocket:exit readWs
+2022/12/05 15:52:22 file has already been closed
+2022/12/05 15:52:22 websocket:exit run inner
+2022/12/05 15:52:22 websocket:exit run
+2022/12/05 15:52:22 websocket:exit writeWs
+2022/12/05 15:52:36 web_api is shutting down now
+2022/12/05 15:52:36 grpc_server is shutting down now
+2022/12/05 15:52:36 web_api server is stoped. error:http: Server closed
+2022/12/05 15:52:36 grpc server is stopped. <nil>
+2022/12/05 15:52:36 DockerManagerSingle EXIT
+2022/12/05 15:52:40 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 15:52:41 api server is running... port:8998 
+2022/12/05 15:52:41 grpc server is running... port:8997
+2022/12/05 15:52:55 error: websocket: close 1000 (normal)
+2022/12/05 15:52:55 websocket:exit readWs
+2022/12/05 15:52:55 file has already been closed
+2022/12/05 15:52:55 websocket:exit run inner
+2022/12/05 15:52:55 websocket:exit run
+2022/12/05 15:52:55 websocket:exit writeWs
+2022/12/05 15:57:39 web_api is shutting down now
+2022/12/05 15:57:39 grpc_server is shutting down now
+2022/12/05 15:57:39 web_api server is stoped. error:http: Server closed
+2022/12/05 15:57:39 grpc server is stopped. <nil>
+2022/12/05 15:57:39 DockerManagerSingle EXIT
+2022/12/05 15:57:45 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 15:57:45 api server is running... port:8998 
+2022/12/05 15:57:45 grpc server is running... port:8997
+2022/12/05 15:57:54 error: websocket: close 1000 (normal)
+2022/12/05 15:57:54 websocket:exit readWs
+2022/12/05 15:57:54 file has already been closed
+2022/12/05 15:57:54 websocket:exit run inner
+2022/12/05 15:57:54 websocket:exit run
+2022/12/05 15:57:54 websocket:exit writeWs
+2022/12/05 15:58:20 web_api is shutting down now
+2022/12/05 15:58:20 grpc_server is shutting down now
+2022/12/05 15:58:20 web_api server is stoped. error:http: Server closed
+2022/12/05 15:58:20 grpc server is stopped. <nil>
+2022/12/05 15:58:20 DockerManagerSingle EXIT
+2022/12/05 15:58:25 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 15:58:25 api server is running... port:8998 
+2022/12/05 15:58:25 grpc server is running... port:8997
+2022/12/05 15:58:41 error: websocket: close 1000 (normal)
+2022/12/05 15:58:41 websocket:exit readWs
+2022/12/05 15:58:41 websocket:exit run
+2022/12/05 15:58:42 websocket:exit writeWs
+2022/12/05 15:58:50 web_api is shutting down now
+2022/12/05 15:58:50 grpc_server is shutting down now
+2022/12/05 15:58:50 web_api server is stoped. error:http: Server closed
+2022/12/05 15:58:50 grpc server is stopped. <nil>
+2022/12/05 15:58:50 DockerManagerSingle EXIT
+2022/12/05 15:58:55 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 15:58:55 api server is running... port:8998 
+2022/12/05 15:58:55 grpc server is running... port:8997
+2022/12/05 15:59:20 web_api is shutting down now
+2022/12/05 15:59:20 grpc_server is shutting down now
+2022/12/05 15:59:20 web_api server is stoped. error:http: Server closed
+2022/12/05 15:59:20 grpc server is stopped. <nil>
+2022/12/05 15:59:20 DockerManagerSingle EXIT
+2022/12/05 15:59:24 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 15:59:24 api server is running... port:8998 
+2022/12/05 15:59:24 grpc server is running... port:8997
+2022/12/05 16:00:16 error: websocket: close 1000 (normal)
+2022/12/05 16:00:16 websocket:exit readWs
+2022/12/05 16:00:16 file has already been closed
+2022/12/05 16:00:16 websocket:exit run inner
+2022/12/05 16:00:16 websocket:exit run
+2022/12/05 16:00:16 websocket:exit writeWs
+2022/12/05 16:00:20 web_api is shutting down now
+2022/12/05 16:00:20 grpc_server is shutting down now
+2022/12/05 16:00:20 web_api server is stoped. error:http: Server closed
+2022/12/05 16:00:20 grpc server is stopped. <nil>
+2022/12/05 16:00:20 DockerManagerSingle EXIT
+2022/12/05 16:00:25 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 16:00:25 api server is running... port:8998 
+2022/12/05 16:00:25 grpc server is running... port:8997
+2022/12/05 16:01:28 grpc_server is shutting down now
+2022/12/05 16:01:28 web_api is shutting down now
+2022/12/05 16:01:28 grpc server is stopped. <nil>
+2022/12/05 16:01:28 web_api server is stoped. error:http: Server closed
+2022/12/05 16:01:28 DockerManagerSingle EXIT
+2022/12/05 16:01:35 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 16:01:35 api server is running... port:8998 
+2022/12/05 16:01:35 grpc server is running... port:8997
+2022/12/05 16:02:13 web_api is shutting down now
+2022/12/05 16:02:13 grpc_server is shutting down now
+2022/12/05 16:02:13 web_api server is stoped. error:http: Server closed
+2022/12/05 16:02:13 grpc server is stopped. <nil>
+2022/12/05 16:02:13 DockerManagerSingle EXIT
+2022/12/05 16:02:18 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 16:02:18 api server is running... port:8998 
+2022/12/05 16:02:18 grpc server is running... port:8997
+2022/12/05 16:03:32 web_api is shutting down now
+2022/12/05 16:03:32 grpc_server is shutting down now
+2022/12/05 16:03:32 web_api server is stoped. error:http: Server closed
+2022/12/05 16:03:32 grpc server is stopped. <nil>
+2022/12/05 16:03:32 DockerManagerSingle EXIT
+2022/12/05 16:13:22 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 16:13:22 api server is running... port:8998 
+2022/12/05 16:13:22 grpc server is running... port:8997
+2022/12/05 16:14:02 error: websocket: close 1000 (normal)
+2022/12/05 16:14:02 websocket:exit readWs
+2022/12/05 16:14:02 websocket:exit run inner
+2022/12/05 16:14:02 websocket:exit run
+2022/12/05 16:14:20 websocket:exit writeWs
+2022/12/05 16:14:45 error: websocket: close 1000 (normal)
+2022/12/05 16:14:45 websocket:exit readWs
+2022/12/05 16:14:45 websocket:exit run inner
+2022/12/05 16:14:45 websocket:exit run
+2022/12/05 16:15:08 websocket:exit writeWs
+2022/12/05 16:15:25 error: websocket: close 1000 (normal)
+2022/12/05 16:15:25 websocket:exit readWs
+2022/12/05 16:15:25 websocket:exit run inner
+2022/12/05 16:15:25 websocket:exit run
+2022/12/05 16:15:37 error: websocket: close 1000 (normal)
+2022/12/05 16:15:37 websocket:exit readWs
+2022/12/05 16:15:37 websocket:exit run inner
+2022/12/05 16:15:37 websocket:exit run
+2022/12/05 16:15:41 websocket:exit writeWs
+2022/12/05 16:16:07 web_api is shutting down now
+2022/12/05 16:16:07 grpc_server is shutting down now
+2022/12/05 16:16:07 web_api server is stoped. error:http: Server closed
+2022/12/05 16:16:07 grpc server is stopped. <nil>
+2022/12/05 16:16:07 DockerManagerSingle EXIT
+2022/12/05 16:21:05 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 16:21:05 api server is running... port:8998 
+2022/12/05 16:21:05 grpc server is running... port:8997
+2022/12/05 16:21:18 error: websocket: close 1000 (normal)
+2022/12/05 16:21:18 websocket:exit readWs
+2022/12/05 16:21:18 file has already been closed
+2022/12/05 16:21:18 websocket:exit run inner
+2022/12/05 16:21:18 websocket:exit run
+2022/12/05 16:21:18 websocket:exit writeWs
+2022/12/05 16:22:37 error: websocket: close 1000 (normal)
+2022/12/05 16:22:37 websocket:exit readWs
+2022/12/05 16:22:37 file has already been closed
+2022/12/05 16:22:37 websocket:exit run inner
+2022/12/05 16:22:37 websocket:exit run
+2022/12/05 16:22:37 websocket:exit writeWs
+2022/12/05 16:24:14 web_api is shutting down now
+2022/12/05 16:24:14 grpc_server is shutting down now
+2022/12/05 16:24:14 web_api server is stoped. error:http: Server closed
+2022/12/05 16:24:14 grpc server is stopped. <nil>
+2022/12/05 16:24:14 DockerManagerSingle EXIT
+2022/12/05 16:29:49 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 16:29:49 api server is running... port:8998 
+2022/12/05 16:29:49 grpc server is running... port:8997
+2022/12/05 16:30:13 error: websocket: close 1000 (normal)
+2022/12/05 16:30:13 websocket:exit readWs
+2022/12/05 16:30:13 file has already been closed
+2022/12/05 16:30:13 websocket:exit run inner
+2022/12/05 16:30:13 websocket:exit run
+2022/12/05 16:30:13 websocket:exit writeWs
+2022/12/05 16:30:33 error: websocket: close 1000 (normal)
+2022/12/05 16:30:33 websocket:exit readWs
+2022/12/05 16:30:33 file has already been closed
+2022/12/05 16:30:33 websocket:exit run inner
+2022/12/05 16:30:33 websocket:exit run
+2022/12/05 16:30:33 websocket:exit writeWs
+2022/12/05 16:31:01 error: websocket: close 1000 (normal)
+2022/12/05 16:31:01 websocket:exit readWs
+2022/12/05 16:31:01 file has already been closed
+2022/12/05 16:31:01 websocket:exit run inner
+2022/12/05 16:31:01 websocket:exit run
+2022/12/05 16:31:01 websocket:exit writeWs
+2022/12/05 16:31:11 error: websocket: close 1000 (normal)
+2022/12/05 16:31:11 websocket:exit readWs
+2022/12/05 16:31:11 file has already been closed
+2022/12/05 16:31:11 websocket:exit run inner
+2022/12/05 16:31:11 websocket:exit run
+2022/12/05 16:31:11 websocket:exit writeWs
+2022/12/05 16:31:42 error: websocket: close 1000 (normal)
+2022/12/05 16:31:42 websocket:exit readWs
+2022/12/05 16:31:42 file has already been closed
+2022/12/05 16:31:42 websocket:exit run inner
+2022/12/05 16:31:42 websocket:exit run
+2022/12/05 16:31:42 websocket:exit writeWs
+2022/12/05 16:31:47 Error response from daemon: No such container: testreids
+2022/12/05 16:31:47 Error response from daemon: No such container: testreids
+2022/12/05 16:31:47 websocket:exit run
+2022/12/05 16:32:03 error: websocket: close 1000 (normal)
+2022/12/05 16:32:03 websocket:exit readWs
+2022/12/05 16:32:07 Error response from daemon: No such container: testreids
+2022/12/05 16:32:07 Error response from daemon: No such container: testreids
+2022/12/05 16:32:07 websocket:exit run
+2022/12/05 16:32:12 error: websocket: close 1000 (normal)
+2022/12/05 16:32:12 websocket:exit readWs
+2022/12/05 16:32:16 Error response from daemon: No such container: testreids
+2022/12/05 16:32:16 Error response from daemon: No such container: testreids
+2022/12/05 16:32:16 websocket:exit run
+2022/12/05 16:32:24 web_api is shutting down now
+2022/12/05 16:32:24 grpc_server is shutting down now
+2022/12/05 16:32:24 web_api server is stoped. error:http: Server closed
+2022/12/05 16:32:24 grpc server is stopped. <nil>
+2022/12/05 16:32:24 DockerManagerSingle EXIT
+2022/12/05 16:32:28 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 16:32:28 api server is running... port:8998 
+2022/12/05 16:32:28 grpc server is running... port:8997
+2022/12/05 16:32:38 Error response from daemon: No such container: testreids
+2022/12/05 16:32:38 Error response from daemon: No such container: testreids
+2022/12/05 16:32:38 websocket:exit run
+2022/12/05 16:33:08 web_api is shutting down now
+2022/12/05 16:33:08 grpc_server is shutting down now
+2022/12/05 16:33:08 web_api server is stoped. error:http: Server closed
+2022/12/05 16:33:08 grpc server is stopped. <nil>
+2022/12/05 16:33:08 DockerManagerSingle EXIT
+2022/12/05 16:33:12 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 16:33:12 api server is running... port:8998 
+2022/12/05 16:33:12 grpc server is running... port:8997
+2022/12/05 16:37:32 error: websocket: close 1000 (normal)
+2022/12/05 16:37:32 websocket:exit readWs
+2022/12/05 16:37:32 file has already been closed
+2022/12/05 16:37:32 websocket:exit run inner
+2022/12/05 16:37:32 websocket:exit run
+2022/12/05 16:37:32 websocket:exit writeWs
+2022/12/05 16:37:55 web_api is shutting down now
+2022/12/05 16:37:55 grpc_server is shutting down now
+2022/12/05 16:37:55 web_api server is stoped. error:http: Server closed
+2022/12/05 16:37:55 grpc server is stopped. <nil>
+2022/12/05 16:37:55 DockerManagerSingle EXIT
+2022/12/05 16:38:00 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 16:38:00 api server is running... port:8998 
+2022/12/05 16:38:00 grpc server is running... port:8997
+2022/12/05 16:38:48 web_api is shutting down now
+2022/12/05 16:38:48 grpc_server is shutting down now
+2022/12/05 16:38:48 web_api server is stoped. error:http: Server closed
+2022/12/05 16:38:48 grpc server is stopped. <nil>
+2022/12/05 16:38:48 DockerManagerSingle EXIT
+2022/12/05 16:39:43 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 16:39:43 api server is running... port:8998 
+2022/12/05 16:39:43 grpc server is running... port:8997
+2022/12/05 16:40:07 error: websocket: close 1000 (normal)
+2022/12/05 16:40:07 websocket:exit readWs
+2022/12/05 16:40:07 file has already been closed
+2022/12/05 16:40:07 websocket:exit run inner
+2022/12/05 16:40:07 websocket:exit run
+2022/12/05 16:40:07 websocket:exit writeWs
+2022/12/05 17:01:57 web_api is shutting down now
+2022/12/05 17:01:57 grpc_server is shutting down now
+2022/12/05 17:01:57 grpc server is stopped. <nil>
+2022/12/05 17:01:57 web_api server is stoped. error:http: Server closed
+2022/12/05 17:01:57 DockerManagerSingle EXIT
+2022/12/05 17:02:02 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 17:02:02 api server is running... port:8998 
+2022/12/05 17:02:02 grpc server is running... port:8997
+2022/12/05 17:05:10 web_api is shutting down now
+2022/12/05 17:05:10 grpc_server is shutting down now
+2022/12/05 17:05:10 web_api server is stoped. error:http: Server closed
+2022/12/05 17:05:10 grpc server is stopped. <nil>
+2022/12/05 17:05:10 DockerManagerSingle EXIT
+2022/12/05 17:05:23 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 17:05:23 api server is running... port:8998 
+2022/12/05 17:05:23 grpc server is running... port:8997
+2022/12/05 17:06:02 websocket:exit readWs
+2022/12/05 17:06:02 file has already been closed
+2022/12/05 17:06:02 websocket:exit run inner
+2022/12/05 17:06:02 websocket:exit run
+2022/12/05 17:06:02 websocket:exit writeWs
+2022/12/05 17:06:40 grpc_server is shutting down now
+2022/12/05 17:06:40 web_api is shutting down now
+2022/12/05 17:06:40 grpc server is stopped. <nil>
+2022/12/05 17:06:40 web_api server is stoped. error:http: Server closed
+2022/12/05 17:06:40 DockerManagerSingle EXIT
+2022/12/05 17:06:47 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 17:06:47 api server is running... port:8998 
+2022/12/05 17:06:47 grpc server is running... port:8997
+2022/12/05 17:10:09 web_api is shutting down now
+2022/12/05 17:10:09 grpc_server is shutting down now
+2022/12/05 17:10:09 web_api server is stoped. error:http: Server closed
+2022/12/05 17:10:09 grpc server is stopped. <nil>
+2022/12/05 17:10:09 DockerManagerSingle EXIT
+2022/12/05 17:10:14 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 17:10:14 api server is running... port:8998 
+2022/12/05 17:10:14 grpc server is running... port:8997
+2022/12/05 17:20:52 web_api is shutting down now
+2022/12/05 17:20:52 grpc_server is shutting down now
+2022/12/05 17:20:52 web_api server is stoped. error:http: Server closed
+2022/12/05 17:20:52 grpc server is stopped. <nil>
+2022/12/05 17:20:52 DockerManagerSingle EXIT
+2022/12/05 17:20:57 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/05 17:20:57 api server is running... port:8998 
+2022/12/05 17:20:57 grpc server is running... port:8997
+2022/12/05 17:34:08 EOF
+2022/12/05 17:34:08 websocket:exit run inner
+2022/12/05 17:34:08 websocket:exit readWs
+2022/12/05 17:34:08 websocket:exit run
+2022/12/05 17:34:08 websocket:exit writeWs
+2022/12/05 17:34:09 web_api is shutting down now
+2022/12/05 17:34:09 grpc_server is shutting down now
+2022/12/05 17:34:09 web_api server is stoped. error:http: Server closed
+2022/12/05 17:34:09 grpc server is stopped. <nil>
+2022/12/05 17:34:09 DockerManagerSingle EXIT
+2022/12/06 08:57:56 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/06 08:57:56 api server is running... port:8998 
+2022/12/06 08:57:56 grpc server is running... port:8997
+2022/12/06 08:59:47 Start: Operation handle.
+2022/12/06 08:59:47 get container id: testreids 
+2022/12/06 08:59:47 Error response from daemon: No such container: testreids
+2022/12/06 08:59:47 Get container connection.
+2022/12/06 08:59:47 Error response from daemon: No such container: testreids
+2022/12/06 09:00:02 Start: Operation handle.
+2022/12/06 09:00:02 get container id: testreids 
+2022/12/06 09:00:02 Error response from daemon: No such container: testreids
+2022/12/06 09:00:02 Get container connection.
+2022/12/06 09:00:02 Error response from daemon: No such container: testreids
+2022/12/06 09:00:09 Start: Operation handle.
+2022/12/06 09:00:09 get container id: testreids 
+2022/12/06 09:00:09 Error response from daemon: No such container: testreids
+2022/12/06 09:00:09 Get container connection.
+2022/12/06 09:00:09 Error response from daemon: No such container: testreids
+2022/12/06 09:00:14 Start: Operation handle.
+2022/12/06 09:00:14 get container id: testreids 
+2022/12/06 09:00:14 Error response from daemon: No such container: testreids
+2022/12/06 09:00:14 Get container connection.
+2022/12/06 09:00:14 Error response from daemon: No such container: testreids
+2022/12/06 09:00:59 Start: Operation handle.
+2022/12/06 09:00:59 get container id: testreids 
+2022/12/06 09:00:59 Error response from daemon: No such container: testreids
+2022/12/06 09:00:59 Get container connection.
+2022/12/06 09:00:59 Error response from daemon: No such container: testreids
+2022/12/06 09:20:30 Start: Operation handle.
+2022/12/06 09:20:30 get container id: testreids 
+2022/12/06 09:20:30 Error response from daemon: No such container: testreids
+2022/12/06 09:20:30 Get container connection.
+2022/12/06 09:20:30 Error response from daemon: No such container: testreids
+2022/12/06 09:20:40 web_api is shutting down now
+2022/12/06 09:20:40 grpc_server is shutting down now
+2022/12/06 09:20:40 web_api server is stoped. error:http: Server closed
+2022/12/06 09:20:40 grpc server is stopped. <nil>
+2022/12/06 09:20:40 DockerManagerSingle EXIT
+2022/12/06 09:20:43 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/06 09:20:43 api server is running... port:8998 
+2022/12/06 09:20:43 grpc server is running... port:8997
+2022/12/06 09:20:49 Start: Operation handle.
+2022/12/06 09:20:49 get container id: testreids 
+2022/12/06 09:20:49 Error response from daemon: No such container: testreids
+2022/12/06 09:20:49 Get container connection.
+2022/12/06 09:20:49 Error response from daemon: No such container: testreids
+2022/12/06 09:56:05 web_api is shutting down now
+2022/12/06 09:56:05 grpc_server is shutting down now
+2022/12/06 09:56:05 web_api server is stoped. error:http: Server closed
+2022/12/06 09:56:05 grpc server is stopped. <nil>
+2022/12/06 09:56:05 DockerManagerSingle EXIT
+2022/12/06 09:56:09 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/06 09:56:09 api server is running... port:8998 
+2022/12/06 09:56:09 grpc server is running... port:8997
+2022/12/06 09:57:19 grpc_server is shutting down now
+2022/12/06 09:57:19 web_api is shutting down now
+2022/12/06 09:57:19 grpc server is stopped. <nil>
+2022/12/06 09:57:19 web_api server is stoped. error:http: Server closed
+2022/12/06 09:57:19 DockerManagerSingle EXIT
+2022/12/06 10:18:16 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/06 10:18:16 api server is running... port:8998 
+2022/12/06 10:18:16 grpc server is running... port:8997
+2022/12/06 10:18:42 error: websocket: close 1000 (normal)
+2022/12/06 10:18:42 websocket:exit readWs
+2022/12/06 10:18:42 file has already been closed
+2022/12/06 10:18:42 websocket:exit run inner
+2022/12/06 10:18:42 websocket:exit run
+2022/12/06 10:18:42 websocket:exit writeWs
+2022/12/06 10:21:11 web_api is shutting down now
+2022/12/06 10:21:11 grpc_server is shutting down now
+2022/12/06 10:21:11 web_api server is stoped. error:http: Server closed
+2022/12/06 10:21:11 grpc server is stopped. <nil>
+2022/12/06 10:21:11 DockerManagerSingle EXIT
+2022/12/06 10:21:15 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/06 10:21:15 api server is running... port:8998 
+2022/12/06 10:21:15 grpc server is running... port:8997
+2022/12/06 10:21:32 error: websocket: close 1000 (normal)
+2022/12/06 10:21:32 websocket:exit readWs
+2022/12/06 10:21:32 file has already been closed
+2022/12/06 10:21:32 websocket:exit run inner
+2022/12/06 10:21:32 websocket:exit run
+2022/12/06 10:21:32 websocket:exit writeWs
+2022/12/06 10:22:21 error: websocket: close 1000 (normal)
+2022/12/06 10:22:21 websocket:exit readWs
+2022/12/06 10:22:21 file has already been closed
+2022/12/06 10:22:21 websocket:exit run inner
+2022/12/06 10:22:21 websocket:exit run
+2022/12/06 10:22:21 websocket:exit writeWs
+2022/12/06 10:23:14 error: websocket: close 1000 (normal)
+2022/12/06 10:23:14 websocket:exit readWs
+2022/12/06 10:23:14 file has already been closed
+2022/12/06 10:23:14 websocket:exit run inner
+2022/12/06 10:23:14 websocket:exit run
+2022/12/06 10:23:14 websocket:exit writeWs
+2022/12/06 10:24:00 web_api is shutting down now
+2022/12/06 10:24:00 grpc_server is shutting down now
+2022/12/06 10:24:00 web_api server is stoped. error:http: Server closed
+2022/12/06 10:24:00 grpc server is stopped. <nil>
+2022/12/06 10:24:00 DockerManagerSingle EXIT
+2022/12/06 10:25:09 args(apiEnable=true grpcEnable=true proxyPort=8999 apiPort=8998)
+2022/12/06 10:25:09 api server is running... port:8998 
+2022/12/06 10:25:09 grpc server is running... port:8997
+2022/12/06 10:42:21 web_api is shutting down now
+2022/12/06 10:42:21 grpc_server is shutting down now
+2022/12/06 10:42:21 web_api server is stoped. error:http: Server closed
+2022/12/06 10:42:21 grpc server is stopped. <nil>
+2022/12/06 10:42:21 DockerManagerSingle EXIT

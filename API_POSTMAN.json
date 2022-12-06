@@ -1,0 +1,374 @@
+{
+	"info": {
+		"_postman_id": "3d78e3d9-edab-49b9-8941-3d7293f9a5a8",
+		"name": "DockerManagerSingle",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "10314807"
+	},
+	"item": [
+		{
+			"name": "image-delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/image/250ff692aeba",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"image",
+						"250ff692aeba"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "image-list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/images",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"images"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "image-get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/image/804f47ab63d9",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"image",
+						"804f47ab63d9"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "container-get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/container/678641b130b5",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"container",
+						"678641b130b5"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "network-get",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/network/2d8108ed9a9e",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"network",
+						"2d8108ed9a9e"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "network-list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/networks",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"networks"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "container-list",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/containers",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"containers"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "network-delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/network/cffbe9e6d646",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"network",
+						"cffbe9e6d646"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "container-delete",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/container/mym",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"container",
+						"mym"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "container-stop",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/container/stop/f0f6c48a4099",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"container",
+						"stop",
+						"f0f6c48a4099"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "image-build",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "dockerfile",
+							"type": "file",
+							"src": "/C:/Users/luoruofeng/Downloads/Dockerfile.txt"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/image/build",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"image",
+						"build"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "container-create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n    \"image_id\": \"14905234a4ed\",\r\n    \"container_name\":\"mym\",\r\n    \"cmd\": \"\",\r\n    \"envs\": {\r\n        \"MYSQL_ROOT_PASSWORD\": \"test\"\r\n    },\r\n    \"Ports\": [\r\n        3306\r\n    ]\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/container",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"container"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "container-run",
+			"request": {
+				"method": "PUT",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/container/start/mym",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"container",
+						"start",
+						"mym"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "network-create",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "urlencoded",
+					"urlencoded": [
+						{
+							"key": "name",
+							"value": "testnet1",
+							"type": "text"
+						},
+						{
+							"key": "subnet",
+							"value": "172.19.0.0/16",
+							"type": "text"
+						},
+						{
+							"key": "gateway",
+							"value": "172.19.0.1",
+							"type": "text"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}:{{port}}/network",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"network"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "network-disconn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/network/disconn/8ba83003e429/bridge",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"network",
+						"disconn",
+						"8ba83003e429",
+						"bridge"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "network-conn",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/network/conn/17c7b6bd942bfa7746d8cdffefe5968ab1340d5f8f1f16dcad4df6c9e4aeae91/2c2c6ea3e741ab9a0a3c236547ef754358f8403bea52986e7004cf42f94dc47b",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"network",
+						"conn",
+						"17c7b6bd942bfa7746d8cdffefe5968ab1340d5f8f1f16dcad4df6c9e4aeae91",
+						"2c2c6ea3e741ab9a0a3c236547ef754358f8403bea52986e7004cf42f94dc47b"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "container-log",
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}:{{port}}/container/log/2c9b79533585",
+					"host": [
+						"{{host}}"
+					],
+					"port": "{{port}}",
+					"path": [
+						"container",
+						"log",
+						"2c9b79533585"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
